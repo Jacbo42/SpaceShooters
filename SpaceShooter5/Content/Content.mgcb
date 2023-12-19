@@ -145,8 +145,10 @@
 /processorParam:TextureFormat=Color
 /build:images/powerups/coin.png
 
-#begin images/Thumbs.db
-/importer:
-/processor:
-/build:images/Thumbs.db
+#begin myFont.spritefont
+/importer:FontDescriptionImporter
+/processor:LocalizedFontProcessor
+/processorParam:PremultiplyAlpha=True
+/processorParam:TextureFormat=Compressed
+/build:myFont.spritefont
 

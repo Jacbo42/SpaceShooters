@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Spaceshooter3", "Spaceshoot
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HighScoreExample", "HighScoreExample\HighScoreExample.csproj", "{017C2FA4-16FE-45E0-9C5F-E6EFD3B667A6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceShooter5", "SpaceShooter5\SpaceShooter5.csproj", "{DD0043EF-9424-4434-A29B-2F2542AAD8CD}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Project1", "Project1\Project1.csproj", "{99307C8C-7948-451C-BFC9-E2D75BEDDD1E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{017C2FA4-16FE-45E0-9C5F-E6EFD3B667A6}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{017C2FA4-16FE-45E0-9C5F-E6EFD3B667A6}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{017C2FA4-16FE-45E0-9C5F-E6EFD3B667A6}.Release|Any CPU.Build.0 = Release|Any CPU
-		{DD0043EF-9424-4434-A29B-2F2542AAD8CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DD0043EF-9424-4434-A29B-2F2542AAD8CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DD0043EF-9424-4434-A29B-2F2542AAD8CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DD0043EF-9424-4434-A29B-2F2542AAD8CD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99307C8C-7948-451C-BFC9-E2D75BEDDD1E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99307C8C-7948-451C-BFC9-E2D75BEDDD1E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99307C8C-7948-451C-BFC9-E2D75BEDDD1E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99307C8C-7948-451C-BFC9-E2D75BEDDD1E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

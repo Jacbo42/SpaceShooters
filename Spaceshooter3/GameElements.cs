@@ -29,7 +29,7 @@ namespace Spaceshooter3
 
         // olika gamestates
 
-        public enum State { Menu, Run, HighScore, Quit};
+        public enum State { Menu, Run, HighScore, Quit, NewLevel};
         public static State currentState;
 
         //Initalize(); anropas av Game1.Initialize() då spelet startar. Här ligger all kod för att initiera objekt och skapa dem dock 
@@ -242,6 +242,15 @@ namespace Spaceshooter3
 
 
             }
+            tmpSprite = content.Load<Texture2D>("UFO");
+            for (int i = 0; i < 5; i++)
+            {
+                int rndX = random.Next(0, window.ClientBounds.Width - tmpSprite.Width);
+                int rndY = random.Next(0, window.ClientBounds.Height / 2);
+                UFO temp = new UFO(tmpSprite, rndX, rndY, content.Load<Texture2D>("images/player/bullet"));
+                enemies.Add(temp); //Lägg till i listan
+            }
+                
 
         }
 
