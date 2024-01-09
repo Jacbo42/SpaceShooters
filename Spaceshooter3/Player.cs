@@ -19,8 +19,12 @@ namespace Spaceshooter3
         Texture2D bulletTexture;
         double timeSinceLastBullet = 0;
         int points = 0;
+        int cash = 0;
+        int starterlives = 3;
 
-        
+        private bool isInvulnerable;
+        private float InvulnerabilityDuration = 3.0f;
+        private float InvulnerableTimer;
 
         //konstruktor
 
@@ -38,6 +42,34 @@ namespace Spaceshooter3
         {
             get { return points; } set {  points = value; }
         }
+        public bool IsInvulnerable
+        {
+            get { return isInvulnerable; }
+            set { isInvulnerable = value; }
+        }
+        public int Cash
+        {
+            get { return cash; }
+            set { cash = value; }
+        }
+        public int Lives
+        {
+            get { return starterlives; }
+            set { starterlives = value; }
+        }
+        public float invulnerabilityDuration
+        {
+            get { return invulnerabilityDuration; }
+            set { invulnerabilityDuration = value; }
+        }
+        public float invulnerableTimer
+        {
+            get { return InvulnerableTimer; }
+            set { InvulnerableTimer = value; }
+        }
+
+
+
         public List<Bullet> Bullets {  get { return bullets; } }    
 
         public void Update(GameWindow window, GameTime gameTime)
@@ -45,10 +77,23 @@ namespace Spaceshooter3
             //Läs in tangenttryckningar
             KeyboardState keyboardState = Keyboard.GetState();
 
+
+            if (isInvulnerable)
+            {
+                InvulnerableTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if(InvulnerableTimer<=0)
+                {
+                    isInvulnerable = false;
+                }
+            }
+
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 isAlive = false;
             }
+
+
 
             //Flytta rymdskeppet efter tangenttryckningar (om det inte är på väg ut från kanten)
 
@@ -125,12 +170,20 @@ namespace Spaceshooter3
             //återställ ala skott:
             bullets.Clear();
             timeSinceLastBullet = 0;
+            //återställer spelarens liv
+            starterlives = 3;
             // återställ spelarens poäng:
             points = 0;
             // går så att spelaren lever igen:
             isAlive = true;
         }
 
+       
 
+        public void StartInvulnerability()
+        {
+            isInvulnerable = true;
+            InvulnerableTimer = InvulnerabilityDuration;
+        }
     }
 }

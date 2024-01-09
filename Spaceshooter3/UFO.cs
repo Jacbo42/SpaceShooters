@@ -11,23 +11,23 @@ namespace Spaceshooter3
 {
     internal class UFO : Enemy
     {
-        List<Bullet> bullets;
+        List<EnemyBullet> bullets;
         Texture2D bulletTexture;
         double timeSinceLastBullet = 0;
         Random random = new Random();
         public UFO(Texture2D texture, float X, float Y, Texture2D bulletTexture) : base(texture, X, Y, 2f, 0.1f)
         {
-            bullets = new List<Bullet>();
+            bullets = new List<EnemyBullet>();
             this.bulletTexture = bulletTexture;
         }
-        public List<Bullet> Bullets { get { return bullets; } }
+        public List<EnemyBullet> Bullets { get { return bullets; } }
 
 
         //Update, uppdaterar fiendens position
         public override void Update(GameWindow window)
         {
 
-            foreach (Bullet bullet in bullets)
+            foreach (EnemyBullet bullet in bullets)
             {
                 bullet.Update();
             }
@@ -56,7 +56,7 @@ namespace Spaceshooter3
         {
             
 
-            foreach (Bullet bullet in bullets)
+            foreach (EnemyBullet bullet in bullets)
             {
                 bullet.Draw(spriteBatch);
             }
@@ -66,7 +66,8 @@ namespace Spaceshooter3
 
         private void ShootBullet()
         {
-            Bullet bullet = new Bullet(bulletTexture, vector.X + texture.Width / 2, vector.Y);
+
+            EnemyBullet bullet = new EnemyBullet(bulletTexture, vector.X + texture.Width / 2, vector.Y);
             bullets.Add(bullet);
         }
     }

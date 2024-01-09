@@ -106,12 +106,39 @@ namespace Spaceshooter3
                 {
                     if (e.CheckCollision(player))
                     {
-                        /*
-                        -+==================================================================================+-
-                          GODMODE ENABLE, TA BORT KOMMENTERA TECKEN VID this.Exit(); FÖR ATT STÄNGA AV DETTA
-                        -+==================================================================================+-
-                        */
-                        player.IsAlive = false;
+                        if (!player.IsInvulnerable)
+                        {
+                            player.Lives--;
+                            if (player.Lives <= 0)
+                            {
+                                player.IsAlive = false;
+                            }
+                            else if (player.IsAlive)
+                            {
+                                player.StartInvulnerability();
+                            }
+
+                        }
+
+                        if (player.IsInvulnerable)
+                        {
+                            player.invulnerableTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                            if (player.invulnerableTimer <= 0)
+                            {
+                                player.IsInvulnerable = false;
+                            }
+                        }
+
+                        
+                        
+
+
+
+
+                        
+
+                        
                     }
                     e.Update(window); //Flytta på dem
                 }
@@ -152,6 +179,22 @@ namespace Spaceshooter3
                     }
 
                 }
+                if (gc.IsAlive)// Kontrollerar om guldmyntet lever
+                {
+                    //gc.Update() kollar om guldmyntet har blivit för gammalt
+                    //för att få leva vidare
+                    gc.Update(gameTime);
+
+                    //Kontrollera om de kolliderat med spelaren
+                    if (gc.CheckCollision(player))
+                    {
+                        // Ta bort myntet vid kollision:
+                        goldCoins.Remove(gc);
+                        player.Cash++; // och ge spelaren cash
+                    }
+
+                }
+
                 else // ta bort guldmyntet för det är dött
                 {
                     goldCoins.Remove(gc);
@@ -188,6 +231,11 @@ namespace Spaceshooter3
                 gc.Draw(spriteBatch);
             }
             printText.Print("Points: " + player.Points, spriteBatch, new Vector2(0, 0), Color.Black);
+            printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
+            printText.Print("Time: " + player.invulnerableTimer, spriteBatch, new Vector2(0, 30), Color.Black);
+
+
+
         }
 
         //HighScoreUpdate(), update-metod för highscore-listan
