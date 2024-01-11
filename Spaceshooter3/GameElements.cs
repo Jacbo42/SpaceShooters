@@ -26,6 +26,7 @@ namespace Spaceshooter3
         static Texture2D goldCoinSprite;
         static PrintText printText;
         static Menu menu;
+        static List<EnemyBullet> enemyBullets;
 
         // olika gamestates
 
@@ -102,6 +103,8 @@ namespace Spaceshooter3
                 }
 
 
+              
+
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
                     if (e.CheckCollision(player))
@@ -129,14 +132,7 @@ namespace Spaceshooter3
                                 player.IsInvulnerable = false;
                             }
                         }
-
-                        
-                        
-
-
-
-
-                        
+                        //timer ser dålig ut
 
                         
                     }
@@ -148,6 +144,50 @@ namespace Spaceshooter3
                 }
 
             }
+
+            foreach (EnemyBullet e in enemyBullets.ToList())
+            {
+
+                if (e.IsAlive) // Kontrollera om fienden lever
+                {
+                    if (e.CheckCollision(player))
+                    {
+                        if (!player.IsInvulnerable)
+                        {
+                            player.Lives--;
+                            if (player.Lives <= 0)
+                            {
+                                player.IsAlive = false;
+                            }
+                            else if (player.IsAlive)
+                            {
+                                player.StartInvulnerability();
+                            }
+
+                        }
+
+                        if (player.IsInvulnerable)
+                        {
+                            player.invulnerableTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                            if (player.invulnerableTimer <= 0)
+                            {
+                                player.IsInvulnerable = false;
+                            }
+                        }
+                        //timer ser dålig ut
+
+
+                    }
+                    e.Update(window); //Flytta på dem
+                }
+                else // Ta bort fienden för den är död
+                {
+
+                }
+
+            }
+
             //Guldmynten ska uppstå slumpmässigt, en chans på 200
 
             Random random = new Random();
@@ -298,6 +338,8 @@ namespace Spaceshooter3
                 UFO temp = new UFO(tmpSprite, rndX, rndY, content.Load<Texture2D>("images/player/bullet"));
                 enemies.Add(temp); //Lägg till i listan
             }
+
+            enemyBullets = new List<EnemyBullet>();
                 
 
         }

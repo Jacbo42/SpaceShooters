@@ -7,6 +7,10 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+
+
+
+
     internal class Bullet : PhysicalObject
     {
         //Konstruktor
@@ -17,7 +21,7 @@ namespace Spaceshooter3
 
         //Update(), uppdaterar skottets position och tar ort det om det åker utanför fönstret
 
-        public void Update()
+        public void Update(Microsoft.Xna.Framework.GameWindow window)
         {
             vector.Y -= speed.Y;
             if (vector.Y < 0)
@@ -31,7 +35,7 @@ namespace Spaceshooter3
 
     }
 
-    internal class EnemyBullet : PhysicalObject
+    internal class EnemyBullet : Enemy
     {
         public EnemyBullet(Texture2D texture, float X, float Y) : base(texture, X, Y, 0, -3f)
         {
@@ -39,7 +43,7 @@ namespace Spaceshooter3
 
         //Update(), uppdaterar skottets position och tar ort det om det åker utanför fönstret
 
-        public void Update()
+        public override void Update(Microsoft.Xna.Framework.GameWindow window)
         {
             vector.Y -= speed.Y;
             if (vector.Y < 0)

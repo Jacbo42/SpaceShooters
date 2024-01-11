@@ -11,25 +11,31 @@ namespace Spaceshooter3
 {
     internal class UFO : Enemy
     {
-        List<EnemyBullet> bullets;
+        List<EnemyBullet> enemybullets;
         Texture2D bulletTexture;
         double timeSinceLastBullet = 0;
         Random random = new Random();
         public UFO(Texture2D texture, float X, float Y, Texture2D bulletTexture) : base(texture, X, Y, 2f, 0.1f)
         {
-            bullets = new List<EnemyBullet>();
+            enemybullets = new List<EnemyBullet>();
             this.bulletTexture = bulletTexture;
         }
-        public List<EnemyBullet> Bullets { get { return bullets; } }
+        public List<EnemyBullet> Bullets { get { return enemybullets; } }
 
 
         //Update, uppdaterar fiendens position
         public override void Update(GameWindow window)
         {
 
-            foreach (EnemyBullet bullet in bullets)
+            foreach (EnemyBullet b in enemybullets.ToList())
             {
-                bullet.Update();
+                //Flytta på skottet:
+                b.Update(window);
+                //kontrollera så att skottet inte är "Dött"
+                if (!b.IsAlive)
+                {
+                    enemybullets.Remove(b); // Ta bort skottet ur listan
+                }
             }
             if (random.Next(120) == 0)
             {
@@ -39,7 +45,7 @@ namespace Spaceshooter3
             vector.X += speed.X;
 
 
-            //kontrollera så dne inte pker utanför fönstret på sidorna
+            //kontrollera så den inte pekar utanför fönstret på sidorna
             if (vector.X > window.ClientBounds.Width - texture.Width || vector.X < 0)
             {
                 speed.X *= -1;
@@ -56,7 +62,7 @@ namespace Spaceshooter3
         {
             
 
-            foreach (EnemyBullet bullet in bullets)
+            foreach (EnemyBullet bullet in enemybullets)
             {
                 bullet.Draw(spriteBatch);
             }
@@ -68,7 +74,7 @@ namespace Spaceshooter3
         {
 
             EnemyBullet bullet = new EnemyBullet(bulletTexture, vector.X + texture.Width / 2, vector.Y);
-            bullets.Add(bullet);
+            enemybullets.Add(bullet);
         }
     }
 }

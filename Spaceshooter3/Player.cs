@@ -138,7 +138,7 @@ namespace Spaceshooter3
             foreach (Bullet b in bullets.ToList())
             {
                 //Flytta på skottet:
-                b.Update();
+                b.Update(window);
                 //kontrollera så att skottet inte är "Dött"
                 if (!b.IsAlive)
                 {

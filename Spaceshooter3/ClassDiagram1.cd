@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Spaceshooter3.Background" Collapsed="true">
-    <Position X="9.75" Y="2.25" Width="1.5" />
+    <Position X="9.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQQAAAAAAAAAAgAAAAAAAAAAAAgAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Background.cs</FileName>
@@ -15,7 +15,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Bullet" Collapsed="true">
-    <Position X="1" Y="0.75" Width="1.5" />
+    <Position X="3.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Bullet.cs</FileName>
@@ -29,16 +29,16 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Game1" Collapsed="true">
-    <Position X="9.75" Y="1.5" Width="1.5" />
+    <Position X="9.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAEAAAAAAAAwAAAAAAAAAAIIAAAAACAIAAAAAAAAQ=</HashCode>
+      <HashCode>AAQAEAAAAAAAAwAAAAAAAAAAIIAAAAACAIQAAAAAAAQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.GameElements" Collapsed="true">
-    <Position X="9.75" Y="0.75" Width="1.5" />
+    <Position X="9.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>JAAAAAAQAACBBQAAIAIAAAgABAAAACAJAAAACABAIAQ=</HashCode>
+      <HashCode>JIAAAAAQAACBBQAAIAIAAAgABAAAACAJAAAACABAIAQ=</HashCode>
       <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -50,14 +50,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.GoldCoin" Collapsed="true">
-    <Position X="7.25" Y="0.75" Width="1.5" />
+    <Position X="5.5" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAA=</HashCode>
       <FileName>GoldCoin.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.HighScore" Collapsed="true">
-    <Position X="9.75" Y="5.25" Width="1.5" />
+    <Position X="9.75" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIgAAAgKgCAAAAIAAASAAAAAAAkAAAAQAAAAAAAEAA=</HashCode>
       <FileName>HighScore.cs</FileName>
@@ -71,21 +71,21 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Menu" Collapsed="true">
-    <Position X="9.75" Y="3" Width="1.5" />
+    <Position X="9.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgQAAAAAAAAAAgAAAAAAAAgAgAAAAAAAQAAAAgAAAAA=</HashCode>
       <FileName>Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.MenuItem" Collapsed="true">
-    <Position X="9.75" Y="3.75" Width="1.5" />
+    <Position X="9.75" Y="4.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgIAAAIAAAAAAAAgAAAAIABAAAAAA=</HashCode>
       <FileName>MenuItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Mine" Collapsed="true">
-    <Position X="3.5" Y="7.5" Width="1.5" />
+    <Position X="2.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Mine.cs</FileName>
@@ -99,31 +99,45 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.PhysicalObject" Collapsed="true">
-    <Position X="3.5" Y="1.25" Width="1.5" />
+    <Position X="3.75" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAEAAAA=</HashCode>
       <FileName>PhysicalObject.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Player" Collapsed="true">
-    <Position X="1" Y="2" Width="1.5" />
+    <Position X="2" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAgACAAIAAhgAAAAAAAAAAAAAAAAAAAAAAAoAAAAA=</HashCode>
+      <HashCode>gQQAgASAAIAEhgAAAAQAAAAAAACQAABCAAAAQoEAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.PrintText" Collapsed="true">
-    <Position X="9.75" Y="7.5" Width="1.5" />
+    <Position X="9.75" Y="6.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>PrintText.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Tripod" Collapsed="true">
-    <Position X="5" Y="7.5" Width="1.5" />
+    <Position X="4.25" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tripod.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spaceshooter3.UFO" Collapsed="true">
+    <Position X="5.75" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAgAAAAIAAAgAAAAAAAAAAAAAAAAQAAAQAAoAAAAA=</HashCode>
+      <FileName>UFO.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spaceshooter3.EnemyBullet" Collapsed="true">
+    <Position X="7.25" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Bullet.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
