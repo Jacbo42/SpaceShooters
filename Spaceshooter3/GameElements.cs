@@ -28,9 +28,11 @@ namespace Spaceshooter3
         static Menu menu;
         static List<EnemyBullet> enemyBullets;
 
+
+
         // olika gamestates
 
-        public enum State { Menu, Run, HighScore, Quit, NewLevel};
+        public enum State { Menu, Run, HighScore, Quit, NewLevel, Shop};
         public static State currentState;
 
         //Initalize(); anropas av Game1.Initialize() då spelet startar. Här ligger all kod för att initiera objekt och skapa dem dock 
@@ -90,6 +92,8 @@ namespace Spaceshooter3
             player.Update(window, gameTime);
             //Gå igenom alla fiender
 
+            int level = 0;
+
             foreach (Enemy e in enemies.ToList())
             {
                 //Kontrollera om fienden kolliderar med ett skott
@@ -126,10 +130,11 @@ namespace Spaceshooter3
                         if (player.IsInvulnerable)
                         {
                             player.invulnerableTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
-
+                            player.UpdateFlash(gameTime);
                             if (player.invulnerableTimer <= 0)
                             {
                                 player.IsInvulnerable = false;
+                                player.IsFlashing = false;
                             }
                         }
                         //timer ser dålig ut
@@ -152,6 +157,7 @@ namespace Spaceshooter3
                 {
                     if (e.CheckCollision(player))
                     {
+
                         if (!player.IsInvulnerable)
                         {
                             player.Lives--;
@@ -187,6 +193,29 @@ namespace Spaceshooter3
                 }
 
             }
+
+            //Ny level
+
+            if (player.Points == 10)
+            {
+                player.Points = 0;
+                Genererafiender(window, content);
+                
+            }
+            
+
+
+
+
+
+
+
+
+
+
+
+
+
 
             //Guldmynten ska uppstå slumpmässigt, en chans på 200
 

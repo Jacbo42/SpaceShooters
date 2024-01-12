@@ -26,6 +26,10 @@ namespace Spaceshooter3
         private float InvulnerabilityDuration = 3.0f;
         private float InvulnerableTimer;
 
+        private float flashduration = 0.5f; //Hur länge spelaren "flashar" efter de har blivit skadad'
+        private float flashtimer;
+        private bool isFlashing;
+
         //konstruktor
 
         public Player(Texture2D texture, float X, float Y, float speedX, float speedY, Texture2D bulletTexture) : base(texture, X, Y, speedX, speedY)
@@ -67,7 +71,10 @@ namespace Spaceshooter3
             get { return InvulnerableTimer; }
             set { InvulnerableTimer = value; }
         }
-
+        public bool IsFlashing
+        {
+            get; set;
+        }
 
 
         public List<Bullet> Bullets {  get { return bullets; } }    
@@ -151,11 +158,16 @@ namespace Spaceshooter3
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            spriteBatch.Draw(texture, vector, Color.White);
+            if (!isInvulnerable || (isInvulnerable && isFlashing))
+            {
+                spriteBatch.Draw(texture, vector, Color.White);
+            }
+            
             foreach (Bullet b in bullets)
             {
                 b.Draw(spriteBatch);
             }
+            
         }
 
         //Reset(), återställer spelaren för ett nytt spel
@@ -184,6 +196,24 @@ namespace Spaceshooter3
         {
             isInvulnerable = true;
             InvulnerableTimer = InvulnerabilityDuration;
+            isFlashing = true;
+            flashtimer = 0.0f;
         }
+
+        public void UpdateFlash (GameTime gameTime)
+        {
+            if (isFlashing)
+            {
+                flashtimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
+
+                if (flashtimer >= flashduration)
+                {
+                    isFlashing = false;
+                    flashtimer = 0.0f;
+                }
+            }
+        }
+
+        
     }
 }
