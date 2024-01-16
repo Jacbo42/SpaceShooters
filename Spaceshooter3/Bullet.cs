@@ -37,7 +37,7 @@ namespace Spaceshooter3
 
     internal class EnemyBullet : PhysicalObject
     {
-        public EnemyBullet(Texture2D texture, float X, float Y) : base(texture, X, Y, 0, -3f)
+        public EnemyBullet(Texture2D texture, float X, float Y) : base(texture, X, Y, 0, -0.1f)
         {
         }
 

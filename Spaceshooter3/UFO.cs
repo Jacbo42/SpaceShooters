@@ -39,7 +39,7 @@ namespace Spaceshooter3
             }
             if (random.Next(120) == 0)
             {
-                ShootBullet();
+                ShootBullet(window);
             }
             //Flytta på fienden
             vector.X += speed.X;
@@ -70,11 +70,24 @@ namespace Spaceshooter3
             base.Draw(spriteBatch);
         }
 
-        private void ShootBullet()
+        private void ShootBullet(GameWindow window)
         {
 
             EnemyBullet bullet = new EnemyBullet(bulletTexture, vector.X + texture.Width / 2, vector.Y);
             enemybullets.Add(bullet);
+
+
+            foreach (EnemyBullet b in enemybullets.ToList())
+            {
+                //Flytta på skottet:
+                b.Update(window);
+                //kontrollera så att skottet inte är "Dött"
+                if (!b.IsAlive)
+                {
+                    EnemyBullets.Remove(b); // Ta bort skottet ur listan
+                }
+            }
+
         }
     }
 }

@@ -53,7 +53,7 @@ namespace Spaceshooter3
 
         }
 
-        //Update(), kolar om användaren tryckt någon tangent.
+        //Update(), kollar om användaren tryckt någon tangent.
         //antingen kan pil-tangenterna användas för att välja en viss MenuItem
         //(utan att gå in i just det alet) eller så kan ENTER användas för att gå
         //in i den valda MenuItem:en

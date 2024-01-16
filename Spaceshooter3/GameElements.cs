@@ -30,6 +30,7 @@ namespace Spaceshooter3
 
 
 
+
         // olika gamestates
 
         public enum State { Menu, Run, HighScore, Quit, NewLevel, Shop};
@@ -93,7 +94,7 @@ namespace Spaceshooter3
             player.Update(window, gameTime);
             //Gå igenom alla fiender
 
-            int level = 0;
+            
 
             foreach (Enemy e in enemies.ToList())
             {
@@ -118,6 +119,7 @@ namespace Spaceshooter3
                         
                         foreach (EnemyBullet bullet in myUFO.EnemyBullets)
                         {
+
                             enemybullets.Add(bullet);
                         }
                     }
@@ -140,7 +142,6 @@ namespace Spaceshooter3
 
                         if (player.IsInvulnerable)
                         {
-                            player.invulnerableTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
                             player.UpdateFlash(gameTime);
                             if (player.invulnerableTimer <= 0)
                             {
@@ -166,6 +167,7 @@ namespace Spaceshooter3
 
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
+                    
                     if (e.CheckCollision(player))
                     {
 
@@ -185,11 +187,12 @@ namespace Spaceshooter3
 
                         if (player.IsInvulnerable)
                         {
-                            player.invulnerableTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
+                            //player.UpdateFlash(gameTime);
 
                             if (player.invulnerableTimer <= 0)
                             {
                                 player.IsInvulnerable = false;
+                                //player.IsFlashing = false;
                             }
                         }
                         //timer ser dålig ut
@@ -200,7 +203,7 @@ namespace Spaceshooter3
                 }
                 else // Ta bort fienden för den är död
                 {
-
+                    enemybullets.Remove(e);
                 }
 
             }
@@ -211,22 +214,10 @@ namespace Spaceshooter3
             {
                 player.Points = 0;
                 Genererafiender(window, content);
+                player.Level++;
                 
             }
             
-
-
-
-
-
-
-
-
-
-
-
-
-
 
             //Guldmynten ska uppstå slumpmässigt, en chans på 200
 
@@ -313,6 +304,7 @@ namespace Spaceshooter3
             printText.Print("Points: " + player.Points, spriteBatch, new Vector2(0, 0), Color.Black);
             printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
             printText.Print("Time: " + player.invulnerableTimer, spriteBatch, new Vector2(0, 30), Color.Black);
+            printText.Print("Level: " + player.Level, spriteBatch, new Vector2(0, 45), Color.Black);
 
 
 

@@ -21,12 +21,13 @@ namespace Spaceshooter3
         int points = 0;
         int cash = 0;
         int starterlives = 3;
+        int level = 0;
 
         private bool isInvulnerable;
         private float InvulnerabilityDuration = 3.0f;
         private float InvulnerableTimer;
 
-        private float flashduration = 0.5f; //Hur länge spelaren "flashar" efter de har blivit skadad'
+        private float flashduration = 0.0f; //Hur länge spelaren "flashar" efter de har blivit skadad'
         private float flashtimer;
         private bool isFlashing;
 
@@ -45,6 +46,11 @@ namespace Spaceshooter3
         public int Points
         {
             get { return points; } set {  points = value; }
+        }
+        public int Level
+        {
+            get { return level; }
+            set { level = value; }
         }
         public bool IsInvulnerable
         {
@@ -162,6 +168,7 @@ namespace Spaceshooter3
             {
                 spriteBatch.Draw(texture, vector, Color.White);
             }
+
             
             foreach (Bullet b in bullets)
             {
@@ -188,6 +195,7 @@ namespace Spaceshooter3
             points = 0;
             // går så att spelaren lever igen:
             isAlive = true;
+            
         }
 
        
@@ -211,6 +219,7 @@ namespace Spaceshooter3
                     isFlashing = false;
                     flashtimer = 0.0f;
                 }
+
             }
         }
 
