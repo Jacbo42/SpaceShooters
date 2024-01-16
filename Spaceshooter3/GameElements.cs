@@ -26,7 +26,7 @@ namespace Spaceshooter3
         static Texture2D goldCoinSprite;
         static PrintText printText;
         static Menu menu;
-        static List<EnemyBullet> enemyBullets;
+        static List<EnemyBullet> enemybullets;
 
 
 
@@ -41,6 +41,7 @@ namespace Spaceshooter3
         public static void Initialize()
         {
             goldCoins = new List<GoldCoin>();
+            enemybullets = new List<EnemyBullet>();
 
         }
 
@@ -111,6 +112,16 @@ namespace Spaceshooter3
 
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
+
+                    if (e is UFO myUFO)
+                    {
+                        
+                        foreach (EnemyBullet bullet in myUFO.EnemyBullets)
+                        {
+                            enemybullets.Add(bullet);
+                        }
+                    }
+                    
                     if (e.CheckCollision(player))
                     {
                         if (!player.IsInvulnerable)
@@ -150,7 +161,7 @@ namespace Spaceshooter3
 
             }
 
-            foreach (EnemyBullet e in enemyBullets.ToList())
+            foreach (EnemyBullet e in enemybullets.ToList())
             {
 
                 if (e.IsAlive) // Kontrollera om fienden lever
@@ -368,7 +379,6 @@ namespace Spaceshooter3
                 enemies.Add(temp); //Lägg till i listan
             }
 
-            enemyBullets = new List<EnemyBullet>();
                 
 
         }

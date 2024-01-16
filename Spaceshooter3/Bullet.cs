@@ -35,7 +35,7 @@ namespace Spaceshooter3
 
     }
 
-    internal class EnemyBullet : Enemy
+    internal class EnemyBullet : PhysicalObject
     {
         public EnemyBullet(Texture2D texture, float X, float Y) : base(texture, X, Y, 0, -3f)
         {
@@ -43,7 +43,7 @@ namespace Spaceshooter3
 
         //Update(), uppdaterar skottets position och tar ort det om det åker utanför fönstret
 
-        public override void Update(Microsoft.Xna.Framework.GameWindow window)
+        public void Update(Microsoft.Xna.Framework.GameWindow window)
         {
             vector.Y -= speed.Y;
             if (vector.Y < 0)

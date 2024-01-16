@@ -20,7 +20,7 @@ namespace Spaceshooter3
             enemybullets = new List<EnemyBullet>();
             this.bulletTexture = bulletTexture;
         }
-        public List<EnemyBullet> Bullets { get { return enemybullets; } }
+        public List<EnemyBullet> EnemyBullets { get { return enemybullets; } }
 
 
         //Update, uppdaterar fiendens position
