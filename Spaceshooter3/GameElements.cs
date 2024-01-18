@@ -18,6 +18,7 @@ namespace Spaceshooter3
     static class GameElements
     {
         static Background background;
+        
         static Texture2D menuSprite;
         static Vector2 menuPos;
         static Player player;
@@ -26,14 +27,31 @@ namespace Spaceshooter3
         static Texture2D goldCoinSprite;
         static PrintText printText;
         static Menu menu;
+        static Shop shop;
+        static Texture2D shopSprite;
+        
+        static Vector2 shopPos;
         static List<EnemyBullet> enemybullets;
+
+
+        //Agenda
+
+        //Ta bort "Continue" knappen i shoppen och istället gör det möjligt att bara tryck ESC, komma tillbaka till menyn,
+        //sedan trycka t.ex. "c" för continue, vilket bara tar en tillbaka till samma spel man körde innan utan någon slags reset
+        //Centrera shopmenyn så att den inte ser konstig ut, och ta bort dess förmåga att vara en knapp och gör det till en background istället.
+        //Sedan gör två olika classer relaterade till player classen: Powerup och Upgrade. En av dem tillåter spelaren att använda powerups,
+        //såsom invincibility kraften, medan den andra tillåter spelaren att upgradera sig själv, med extra fart och lägre tid mellan bullets.
+
+        //Efter detta är det kanske väldigt få prioriteringar kvar? Optimera levels osv?
+                                                                                                                                                                                
+
 
 
 
 
         // olika gamestates
 
-        public enum State { Menu, Run, HighScore, Quit, NewLevel, Shop};
+        public enum State { Menu, Run, HighScore, Quit, Shop, Continue};
         public static State currentState;
 
         //Initalize(); anropas av Game1.Initialize() då spelet startar. Här ligger all kod för att initiera objekt och skapa dem dock 
@@ -52,9 +70,20 @@ namespace Spaceshooter3
         public static void LoadContent(ContentManager content, GameWindow window)
         {
             menu = new Menu((int)State.Menu);
+
+            
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)State.Quit);
+            menu.AddItem(content.Load<Texture2D>("images/menu/GOTOSHOP"), (int)State.Shop);
+
+            //Shop meny laddas in här
+            shop = new Shop((int)State.Shop);
+            shop.AddItem(content.Load<Texture2D>("images/shopmenu/CONTQUESTION"), (int)State.Shop);
+            shop.AddItem(content.Load<Texture2D>("images/shopmenu/shopbackground"), (int)State.Shop);
+
+
+
             background = new Background(content.Load<Texture2D>("images/background"), window);
 
             player = new Player(content.Load<Texture2D>("ship"), 380, 400, 2.5f, 4.5f, content.Load<Texture2D>("images/player/bullet")); //Ändra ship delen
@@ -85,6 +114,21 @@ namespace Spaceshooter3
             background.Draw(spriteBatch);
             menu.Draw(spriteBatch);
         }
+
+        public static State ShopUpdate(GameTime gameTime)
+        {
+            KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.Escape)) { return State.Menu; }
+            return (State)shop.Update(gameTime);
+        }
+
+        //MenuDraw(), ritar ut menyn
+
+        public static void ShopDraw(SpriteBatch spriteBatch)
+        {
+            shop.Draw(spriteBatch);
+        }
+
 
         //RunUpdate(), update-metod för själva spelet
 
@@ -139,7 +183,7 @@ namespace Spaceshooter3
 
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
-                    player.LoseLife(window, gameTime, player, e);
+                    player.LoseLifeBullet(window, gameTime, player, e);
                     e.Update(window); //Flytta på dem
                 }
                 else // Ta bort fienden för den är död

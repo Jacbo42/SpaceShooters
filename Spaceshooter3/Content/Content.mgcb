@@ -37,6 +37,18 @@
 /processorParam:TextureFormat=Color
 /build:images/menu/exit.png
 
+#begin images/menu/GOTOSHOP.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/menu/GOTOSHOP.png
+
 #begin images/menu/highscore.png
 /importer:TextureImporter
 /processor:TextureProcessor
@@ -96,6 +108,30 @@
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
 /build:images/powerups/coin.png
+
+#begin images/shopmenu/CONTQUESTION.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/shopmenu/CONTQUESTION.png
+
+#begin images/shopmenu/shopbackground.png
+/importer:TextureImporter
+/processor:TextureProcessor
+/processorParam:ColorKeyColor=255,0,255,255
+/processorParam:ColorKeyEnabled=True
+/processorParam:GenerateMipmaps=False
+/processorParam:PremultiplyAlpha=True
+/processorParam:ResizeToPowerOfTwo=False
+/processorParam:MakeSquare=False
+/processorParam:TextureFormat=Color
+/build:images/shopmenu/shopbackground.png
 
 #begin mine.png
 /importer:TextureImporter

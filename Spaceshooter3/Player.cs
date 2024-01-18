@@ -255,17 +255,41 @@ namespace Spaceshooter3
 
             }
 
+        }
+        public void LoseLifeBullet(GameWindow window, GameTime gameTime, Player player, EnemyBullet e)
+        {
+            if (e.CheckCollision(player))
+            {
+                if (!IsInvulnerable)
+                {
+                    Lives--;
+                    if (Lives <= 0)
+                    {
+                        IsAlive = false;
+                    }
+                    else if (IsAlive)
+                    {
+                        StartInvulnerability();
+                    }
+
+                }
+
+                if (IsInvulnerable)
+                {
+                    UpdateFlash(gameTime);
+                    if (invulnerableTimer <= 0)
+                    {
+                        IsInvulnerable = false;
+                        IsFlashing = false;
+                    }
+                }
+                //timer ser dålig ut
 
 
-
-
-
-
-
+            }
 
         }
 
-        
     }
 }
 

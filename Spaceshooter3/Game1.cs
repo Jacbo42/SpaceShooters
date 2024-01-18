@@ -82,6 +82,12 @@ namespace Spaceshooter3
                 case GameElements.State.Quit:
                     this.Exit();
                     break;
+                case GameElements.State.Shop:
+                    GameElements.currentState = GameElements.ShopUpdate(gameTime);
+                    break;
+                case GameElements.State.Continue:
+                    GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
+                    break;
                 default: //menyn
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
@@ -120,6 +126,9 @@ namespace Spaceshooter3
                     break;
                 case GameElements.State.Quit:
                     this.Exit();
+                    break;
+                case GameElements.State.Shop:
+                    GameElements.ShopDraw(_spriteBatch);
                     break;
                 default: //menyn
                     GameElements.MenuDraw(_spriteBatch);
