@@ -123,36 +123,8 @@ namespace Spaceshooter3
                             enemybullets.Add(bullet);
                         }
                     }
-                    
-                    if (e.CheckCollision(player))
-                    {
-                        if (!player.IsInvulnerable)
-                        {
-                            player.Lives--;
-                            if (player.Lives <= 0)
-                            {
-                                player.IsAlive = false;
-                            }
-                            else if (player.IsAlive)
-                            {
-                                player.StartInvulnerability();
-                            }
 
-                        }
-
-                        if (player.IsInvulnerable)
-                        {
-                            player.UpdateFlash(gameTime);
-                            if (player.invulnerableTimer <= 0)
-                            {
-                                player.IsInvulnerable = false;
-                                player.IsFlashing = false;
-                            }
-                        }
-                        //timer ser dålig ut
-
-                        
-                    }
+                    player.LoseLife(window, gameTime, player, e);
                     e.Update(window); //Flytta på dem
                 }
                 else // Ta bort fienden för den är död
@@ -167,38 +139,7 @@ namespace Spaceshooter3
 
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
-                    
-                    if (e.CheckCollision(player))
-                    {
-
-                        if (!player.IsInvulnerable)
-                        {
-                            player.Lives--;
-                            if (player.Lives <= 0)
-                            {
-                                player.IsAlive = false;
-                            }
-                            else if (player.IsAlive)
-                            {
-                                player.StartInvulnerability();
-                            }
-
-                        }
-
-                        if (player.IsInvulnerable)
-                        {
-                            //player.UpdateFlash(gameTime);
-
-                            if (player.invulnerableTimer <= 0)
-                            {
-                                player.IsInvulnerable = false;
-                                //player.IsFlashing = false;
-                            }
-                        }
-                        //timer ser dålig ut
-
-
-                    }
+                    player.LoseLife(window, gameTime, player, e);
                     e.Update(window); //Flytta på dem
                 }
                 else // Ta bort fienden för den är död
@@ -370,9 +311,6 @@ namespace Spaceshooter3
                 UFO temp = new UFO(tmpSprite, rndX, rndY, content.Load<Texture2D>("images/player/bullet"));
                 enemies.Add(temp); //Lägg till i listan
             }
-
-                
-
         }
 
 

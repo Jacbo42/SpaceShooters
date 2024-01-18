@@ -11,8 +11,6 @@ namespace Spaceshooter3
     public class Game1 : Game
     {
 
-        //TODO, GÖR SÅ ATT FIENDER BÖRJAR LÄNGRE BORT FRÅN SPELAREN
-        //GÖR SÅ ATT FIENDER KAN SKAPAS UNDER SPELETS GÅNG ISTÄLLET FÖR ATT DET BARA FINNS DE I BÖRJAN
         //TA BORT HIGHSCORE KOD? HIGHSCORE EJ KLAR!!!!!!!!!!!!!!!!
 
         private GraphicsDeviceManager _graphics;
