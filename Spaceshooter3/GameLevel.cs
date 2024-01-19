@@ -8,9 +8,9 @@ namespace Spaceshooter3
 {
     public class GameLevel
     {
-        private float ändraAlpha = 1.0f;
-        private float ändraTimer = 120.0f;
-        private const float ändraFart = 0.1f;
+        //private float ändraAlpha = 1.0f;
+        //private float ändraTimer = 120.0f;
+        //private const float ändraFart = 0.1f;
 
 
 

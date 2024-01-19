@@ -42,6 +42,9 @@ namespace Spaceshooter3
         //Sedan gör två olika classer relaterade till player classen: Powerup och Upgrade. En av dem tillåter spelaren att använda powerups,
         //såsom invincibility kraften, medan den andra tillåter spelaren att upgradera sig själv, med extra fart och lägre tid mellan bullets.
 
+        //Spelare måste kunna se hur mycket "cash" de har i shop menyn. Just nu gör de inte det
+
+
         //Efter detta är det kanske väldigt få prioriteringar kvar? Optimera levels osv?
                                                                                                                                                                                 
 
@@ -71,7 +74,7 @@ namespace Spaceshooter3
         {
             menu = new Menu((int)State.Menu);
 
-            
+            menu.AddItem(content.Load<Texture2D>("images/menu/continue"), (int)State.Continue);
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)State.Quit);
@@ -79,7 +82,6 @@ namespace Spaceshooter3
 
             //Shop meny laddas in här
             shop = new Shop((int)State.Shop);
-            shop.AddItem(content.Load<Texture2D>("images/shopmenu/CONTQUESTION"), (int)State.Shop);
             shop.AddItem(content.Load<Texture2D>("images/shopmenu/shopbackground"), (int)State.Shop);
 
 
@@ -119,6 +121,8 @@ namespace Spaceshooter3
         {
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.Escape)) { return State.Menu; }
+            if (keyboardState.IsKeyDown(Keys.C)) { return State.Continue; }
+
             return (State)shop.Update(gameTime);
         }
 
@@ -127,6 +131,8 @@ namespace Spaceshooter3
         public static void ShopDraw(SpriteBatch spriteBatch)
         {
             shop.Draw(spriteBatch);
+            printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
+
         }
 
 
@@ -138,7 +144,12 @@ namespace Spaceshooter3
             player.Update(window, gameTime);
             //Gå igenom alla fiender
 
-            
+            KeyboardState keyboardState = Keyboard.GetState();
+
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            {
+                return State.Menu;
+            }
 
             foreach (Enemy e in enemies.ToList())
             {
@@ -290,6 +301,8 @@ namespace Spaceshooter3
             printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
             printText.Print("Time: " + player.invulnerableTimer, spriteBatch, new Vector2(0, 30), Color.Black);
             printText.Print("Level: " + player.Level, spriteBatch, new Vector2(0, 45), Color.Black);
+
+           
 
 
 

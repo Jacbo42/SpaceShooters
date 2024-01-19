@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Reflection.Metadata;
+using Microsoft.Xna.Framework.Content;
 
 namespace Spaceshooter3
 {
@@ -13,6 +15,11 @@ namespace Spaceshooter3
     {
         List<ShopItem> shop; //lista på menuItems
         int selected = 0; //Första valet i listan är valt
+        PrintText printText;
+        static Texture2D shopSprite;
+        Player player;
+
+
 
         //currentHeigt används för att rita ut shopItems på olika höjd:
 
@@ -54,6 +61,7 @@ namespace Spaceshooter3
 
         public int Update(GameTime gameTime)
         {
+
             //Läs in tangenttryckningar
             KeyboardState keyboardState = Keyboard.GetState();
 
@@ -63,6 +71,8 @@ namespace Spaceshooter3
 
             if (lastChange + 130 < gameTime.TotalGameTime.TotalMilliseconds)
             {
+                
+
                 // Gå ett steg ned i menyn
                 if (keyboardState.IsKeyDown(Keys.Down))
                 {
@@ -104,10 +114,16 @@ namespace Spaceshooter3
 
         public void Draw(SpriteBatch spriteBatch)
         {
+           
+
             for (int i = 0; i < shop.Count; i++)
             {
                 spriteBatch.Draw(shop[i].Texture, shop[i].Position, Color.White);
             }
+           
+            
+            //printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Blue);
+
         }
     }
 }

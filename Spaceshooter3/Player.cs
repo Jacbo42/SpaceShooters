@@ -101,10 +101,10 @@ namespace Spaceshooter3
                 }
             }
 
-            if (keyboardState.IsKeyDown(Keys.Escape))
-            {
-                isAlive = false;
-            }
+            //if (keyboardState.IsKeyDown(Keys.Escape))
+            //{
+            //    isAlive = false;
+            //}
 
 
 
@@ -136,7 +136,7 @@ namespace Spaceshooter3
             if (keyboardState.IsKeyDown(Keys.Space))
             {
                 //Kontrollera om spelaren får skjuta
-                if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + 200)
+                if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + 400)
                 {
                     //skapa skottet:
                     Bullet temp = new Bullet(bulletTexture, vector.X + texture.Width / 2, vector.Y);
