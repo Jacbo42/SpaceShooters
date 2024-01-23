@@ -22,6 +22,10 @@ namespace Spaceshooter3
         int cash = 0;
         int starterlives = 3;
         int level = 0;
+        double timeBetweenBullets = 400; // Initial value
+
+        
+
 
         private bool isInvulnerable;
         private float InvulnerabilityDuration = 3.0f;
@@ -43,6 +47,11 @@ namespace Spaceshooter3
 
         //points
 
+        public double TimeBetweenBullets
+        {
+            get { return timeBetweenBullets; }
+            set { timeBetweenBullets = value; }
+        }
         public int Points
         {
             get { return points; } set {  points = value; }
@@ -132,11 +141,11 @@ namespace Spaceshooter3
             // Har det åkt ut nedtill
             if (vector.Y > window.ClientBounds.Height - texture.Height) vector.Y = window.ClientBounds.Height - texture.Height;
 
-            // Spelaren vill sluta
+            // Spelaren vill skjuta
             if (keyboardState.IsKeyDown(Keys.Space))
             {
                 //Kontrollera om spelaren får skjuta
-                if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + 400)
+                if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + timeBetweenBullets)
                 {
                     //skapa skottet:
                     Bullet temp = new Bullet(bulletTexture, vector.X + texture.Width / 2, vector.Y);

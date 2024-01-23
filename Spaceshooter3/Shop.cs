@@ -13,30 +13,29 @@ namespace Spaceshooter3
 {
     internal class Shop
     {
-        List<ShopItem> shop; //lista på menuItems
-        int selected = 0; //Första valet i listan är valt
-        PrintText printText;
-        static Texture2D shopSprite;
-        Player player;
+         //lista på menuItems
+         //Första valet i listan är valt
 
-
+        private List<ShopItem> shop;
+        private int selected = 0;
+        private PrintText printText;
+        private static Texture2D shopSprite;
+        private Player player;        
 
         //currentHeigt används för att rita ut shopItems på olika höjd:
 
         float currentHeight = 0;
-
-        // lastChange används för att "pausa" tangentuttryckningar, så att
-        // det inte ska gå för fort att bläddra bland menyvalen:
-        double lastChange = 0;
+        
         // det state som representerar själva menyn
         int ShopState;
 
-        //Menu(), konstruktor som skapar listan med MenuItem:s
+        //Shop(), konstruktor som skapar listan med ShopItem:s
 
-        public Shop(int ShopState)
+        public Shop(int shopState, Player player)
         {
             shop = new List<ShopItem>();
-            this.ShopState = ShopState;
+            this.ShopState = shopState;
+            this.player = player;
         }
         //AddItem(), lägger till ett menyval i listan
 
@@ -54,6 +53,15 @@ namespace Spaceshooter3
 
         }
 
+        public void UpgradePlayerSpeed()
+        {
+            // Example: Increase player speed
+        }
+
+        public void UpgradeBulletRate()
+        {
+        }
+
         //Update(), kollar om användaren tryckt någon tangent.
         //antingen kan pil-tangenterna användas för att välja en viss MenuItem
         //(utan att gå in i just det alet) eller så kan ENTER användas för att gå
@@ -61,51 +69,18 @@ namespace Spaceshooter3
 
         public int Update(GameTime gameTime)
         {
-
-            //Läs in tangenttryckningar
-            KeyboardState keyboardState = Keyboard.GetState();
-
-            //Byte mellan olika menyval. Först måste vi dock kontrollera så att användaren
-            //inte precis nyligen bytte menyval. Vi vill ju inte att det ska ändras 30
-            //eller 60 gånger per sekund. Därför pausar vi i 130 millisekunder.
-
-            if (lastChange + 130 < gameTime.TotalGameTime.TotalMilliseconds)
-            {
-                
-
-                // Gå ett steg ned i menyn
-                if (keyboardState.IsKeyDown(Keys.Down))
-                {
-                    selected++;
-                    //Om vi har gått utanför de möjliga valen, så vill vi att det första menyvalet ska väljas
-                    if (selected > shop.Count - 1)
-                    {
-                        selected = 0;
-                    }
-
-                }
-                if (keyboardState.IsKeyDown(Keys.Up))
-                {
-                    selected--;
-                    //Om vi har gått utanför de möjliga valen (alltså negativa siffrorna),
-                    //så vill vi att det sista & menyvalet ska väljas:
-                    if (selected < 0)
-                    {
-                        selected = shop.Count - 1; //Det sista menyvalet
-
-                    }
-                }
-                //ställ lastchange till exakt detta ögonblick:
-                lastChange = gameTime.TotalGameTime.TotalMilliseconds;
-            }
-
-            //Välj ett menyval med ENTER
-            if (keyboardState.IsKeyDown(Keys.Enter))
-            {
-                return shop[selected].State;
-            }
-
             //om inget menyval har valts, så stannar vi kvar i menyn
+            KeyboardState keyboardState = new KeyboardState();
+
+
+            // NOTE TO SELF
+            // JAG TROR INTE ATT PLAYER BULLETS ÄNDRAR NÄR JAG 
+            // TRYCKER PÅ 1 HÄR EFTERSOM DETTA ÄR EN ANNAN STATE
+            // SOM DÅ INTE HAR NÅGON PERMANENT EFFECT PÅ PLAYER
+            
+
+            
+
 
             return ShopState;
         }

@@ -81,7 +81,7 @@ namespace Spaceshooter3
             menu.AddItem(content.Load<Texture2D>("images/menu/GOTOSHOP"), (int)State.Shop);
 
             //Shop meny laddas in här
-            shop = new Shop((int)State.Shop);
+            shop = new Shop((int)State.Shop, player);
             shop.AddItem(content.Load<Texture2D>("images/shopmenu/shopbackground"), (int)State.Shop);
 
 
@@ -140,6 +140,8 @@ namespace Spaceshooter3
 
         public static State RunUpdate(ContentManager content, GameWindow window, GameTime gameTime)
         {
+            
+
             //Uppdatera spelarens position
             player.Update(window, gameTime);
             //Gå igenom alla fiender
