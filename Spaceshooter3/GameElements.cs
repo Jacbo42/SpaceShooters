@@ -36,7 +36,9 @@ namespace Spaceshooter3
 
         //Efter detta är det kanske väldigt få prioriteringar kvar? Optimera levels osv?
 
-
+        //FIXA DESSA
+        // FIXA POINTS. FIXA HIGHSCORE. FIXA FLASHING SÅ ATT MAN FLASHAR, INTE BARA BLIR OSYNLIG. FIXA START SÅ ATT CONTINUE OCH START ÄR HELT OLIKA!!!!!!!!!!!!!!
+        // FIXA OCKSÅ SÅ ATT DET FINNS EN BILD I MENU SOM FUNGERAR SOM INTRUSKTIONER TILL HUR MAN SPELAR
 
 
 
@@ -122,9 +124,8 @@ namespace Spaceshooter3
             }
             if (keyboardState.IsKeyDown(Keys.D1) && player.UpgradeLimit < 3)
             {
-                if (player.Cash >= 15)
+                if (player.Cash >= 10)
                 {
-                    player.UpgradeLimit++;
                     player.Lives += 1;
                     player.Cash -= 10;
                 }
@@ -186,7 +187,7 @@ namespace Spaceshooter3
                             enemybullets.Add(bullet);
                         }
                     }
-
+                    //Spelare förlorar liv i kontakt med fiende
                     player.LoseLife(window, gameTime, player, e);
                     e.Update(window); //Flytta på dem
                 }
@@ -200,12 +201,12 @@ namespace Spaceshooter3
             foreach (EnemyBullet e in enemybullets.ToList())
             {
 
-                if (e.IsAlive) // Kontrollera om fienden lever
-                {
+                if (e.IsAlive) // Kontrollera om skottet lever
+                { 
+                    //Spelare förlorar liv i kontakt med skott
                     player.LoseLifeBullet(window, gameTime, player, e);
-                     //Flytta på dem
                 }
-                else // Ta bort fienden för den är död
+                else // Ta bort skottet för den är död
                 {
                     enemybullets.Remove(e);
                 }
@@ -214,7 +215,7 @@ namespace Spaceshooter3
 
             //Ny level
 
-            if (player.Points == 10)
+            if (player.Points >= 10)
             {
                 player.Points = 0;
                 Genererafiender(window, content);

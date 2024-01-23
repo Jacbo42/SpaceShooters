@@ -75,6 +75,7 @@ namespace Spaceshooter3
             switch (GameElements.currentState)
             {
                 case GameElements.State.Run:
+                    
                     GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
                     break;
                 case GameElements.State.HighScore:
