@@ -35,13 +35,13 @@ namespace Spaceshooter3
         {
             // TODO: Add your initialization logic here
 
+            _graphics.PreferredBackBufferWidth = 1000;
+            _graphics.PreferredBackBufferHeight = 720;
+            _graphics.ApplyChanges();
             GameElements.currentState = GameElements.State.Menu;
             GameElements.Initialize();
             highScore = new HighScore(10);
-
-
-
-
+            
             base.Initialize();
         }
 

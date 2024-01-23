@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design;
 using System.Linq;
 using System.Reflection.Metadata;
 using System.Text;
@@ -18,9 +19,8 @@ namespace Spaceshooter3
     static class GameElements
     {
         static Background background;
+
         
-        static Texture2D menuSprite;
-        static Vector2 menuPos;
         static Player player;
         static List<Enemy> enemies;
         static List<GoldCoin> goldCoins;
@@ -28,25 +28,14 @@ namespace Spaceshooter3
         static PrintText printText;
         static Menu menu;
         static Shop shop;
-        static Texture2D shopSprite;
-        
-        static Vector2 shopPos;
+
         static List<EnemyBullet> enemybullets;
 
 
-        //Agenda
-
-        //Ta bort "Continue" knappen i shoppen och istället gör det möjligt att bara tryck ESC, komma tillbaka till menyn,
-        //sedan trycka t.ex. "c" för continue, vilket bara tar en tillbaka till samma spel man körde innan utan någon slags reset
-        //Centrera shopmenyn så att den inte ser konstig ut, och ta bort dess förmåga att vara en knapp och gör det till en background istället.
-        //Sedan gör två olika classer relaterade till player classen: Powerup och Upgrade. En av dem tillåter spelaren att använda powerups,
-        //såsom invincibility kraften, medan den andra tillåter spelaren att upgradera sig själv, med extra fart och lägre tid mellan bullets.
-
-        //Spelare måste kunna se hur mycket "cash" de har i shop menyn. Just nu gör de inte det
-
+        
 
         //Efter detta är det kanske väldigt få prioriteringar kvar? Optimera levels osv?
-                                                                                                                                                                                
+
 
 
 
@@ -54,7 +43,7 @@ namespace Spaceshooter3
 
         // olika gamestates
 
-        public enum State { Menu, Run, HighScore, Quit, Shop, Continue};
+        public enum State { Menu, Run, HighScore, Quit, Shop, Continue };
         public static State currentState;
 
         //Initalize(); anropas av Game1.Initialize() då spelet startar. Här ligger all kod för att initiera objekt och skapa dem dock 
@@ -81,7 +70,7 @@ namespace Spaceshooter3
             menu.AddItem(content.Load<Texture2D>("images/menu/GOTOSHOP"), (int)State.Shop);
 
             //Shop meny laddas in här
-            shop = new Shop((int)State.Shop);
+            shop = new Shop((int)State.Shop, player);
             shop.AddItem(content.Load<Texture2D>("images/shopmenu/shopbackground"), (int)State.Shop);
 
 
@@ -106,6 +95,7 @@ namespace Spaceshooter3
 
         public static State MenuUpdate(GameTime gameTime)
         {
+            
             return (State)menu.Update(gameTime);
         }
 
@@ -120,6 +110,26 @@ namespace Spaceshooter3
         public static State ShopUpdate(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
+            if (keyboardState.IsKeyDown(Keys.D1) && player.UpgradeLimit < 3)
+            {
+                if (player.Cash >= 10)
+                {
+                    player.UpgradeLimit++;
+                    player.TimeBetweenBullets -= 50;
+                    player.Cash -= 10;
+                }
+                
+            }
+            if (keyboardState.IsKeyDown(Keys.D1) && player.UpgradeLimit < 3)
+            {
+                if (player.Cash >= 15)
+                {
+                    player.UpgradeLimit++;
+                    player.Lives += 1;
+                    player.Cash -= 10;
+                }
+
+            }
             if (keyboardState.IsKeyDown(Keys.Escape)) { return State.Menu; }
             if (keyboardState.IsKeyDown(Keys.C)) { return State.Continue; }
 
@@ -140,6 +150,7 @@ namespace Spaceshooter3
 
         public static State RunUpdate(ContentManager content, GameWindow window, GameTime gameTime)
         {
+
             //Uppdatera spelarens position
             player.Update(window, gameTime);
             //Gå igenom alla fiender
@@ -156,23 +167,20 @@ namespace Spaceshooter3
                 //Kontrollera om fienden kolliderar med ett skott
                 foreach (Bullet b in player.Bullets)
                 {
-                    if (e.CheckCollision(b)) 
+                    if (e.CheckCollision(b))
                     {
                         e.IsAlive = false;
                         player.Points++;
                     }
                 }
-
-
-              
-
+                
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
 
-                    if (e is UFO myUFO)
+                    if (e is UFO myUFO) //Om fienden är ett UFO så...
                     {
-                        
-                        foreach (EnemyBullet bullet in myUFO.EnemyBullets)
+
+                        foreach (EnemyBullet bullet in myUFO.EnemyBullets) // ...ska enemybullet läggas till i en global lista
                         {
 
                             enemybullets.Add(bullet);
@@ -195,7 +203,7 @@ namespace Spaceshooter3
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
                     player.LoseLifeBullet(window, gameTime, player, e);
-                    e.Update(window); //Flytta på dem
+                     //Flytta på dem
                 }
                 else // Ta bort fienden för den är död
                 {
@@ -211,14 +219,14 @@ namespace Spaceshooter3
                 player.Points = 0;
                 Genererafiender(window, content);
                 player.Level++;
-                
+
             }
-            
+
 
             //Guldmynten ska uppstå slumpmässigt, en chans på 200
 
             Random random = new Random();
-            int newCoin = random.Next(1, 200);
+            int newCoin = random.Next(1, 150);
             if (newCoin == 1) //Ok, nytt guldmynt ska uppstå
             {
                 //var ska guldmyntet ska uppstå:
@@ -302,7 +310,7 @@ namespace Spaceshooter3
             printText.Print("Time: " + player.invulnerableTimer, spriteBatch, new Vector2(0, 30), Color.Black);
             printText.Print("Level: " + player.Level, spriteBatch, new Vector2(0, 45), Color.Black);
 
-           
+
 
 
 
@@ -321,7 +329,7 @@ namespace Spaceshooter3
 
         //HighScoreDraw(), ritar ut highscorelistan
 
-        public static void HighScoreDraw (SpriteBatch spriteBatch)
+        public static void HighScoreDraw(SpriteBatch spriteBatch)
         {
             //Rita ut highscore- listan
         }

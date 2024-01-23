@@ -35,9 +35,10 @@ namespace Spaceshooter3
 
     }
 
+    //Detta är samma klass, fast den enda skillnaden är att denna klass har ett annat namn och fart på skotten
     internal class EnemyBullet : PhysicalObject
     {
-        public EnemyBullet(Texture2D texture, float X, float Y) : base(texture, X, Y, 0, -0.1f)
+        public EnemyBullet(Texture2D texture, float X, float Y) : base(texture, X, Y, 0, -3f)
         {
         }
 

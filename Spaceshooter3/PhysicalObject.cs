@@ -26,7 +26,7 @@ namespace Spaceshooter3
             Rectangle otherRect = new Rectangle(Convert.ToInt32(other.X), Convert.ToInt32(other.Y), Convert.ToInt32(other.Width), Convert.ToInt32(other.Height));
             return myRect.Intersects(otherRect);
         }
-
+        //Själva egenskapen som gör det möjligt för att saker ska kunna dö
         public bool IsAlive
         {
             get { return isAlive; }

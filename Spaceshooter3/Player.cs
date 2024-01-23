@@ -22,6 +22,11 @@ namespace Spaceshooter3
         int cash = 0;
         int starterlives = 3;
         int level = 0;
+        double timeBetweenBullets = 400; // Initial value
+        int upgradelimit = 0;
+
+
+
 
         private bool isInvulnerable;
         private float InvulnerabilityDuration = 3.0f;
@@ -43,9 +48,21 @@ namespace Spaceshooter3
 
         //points
 
+        public double TimeBetweenBullets
+        {
+            get { return timeBetweenBullets; }
+            set { timeBetweenBullets = value; }
+        }
+
+        public int UpgradeLimit
+        {
+            get { return upgradelimit; }
+            set { upgradelimit = value; }
+        }
         public int Points
         {
-            get { return points; } set {  points = value; }
+            get { return points; }
+            set { points = value; }
         }
         public int Level
         {
@@ -83,7 +100,7 @@ namespace Spaceshooter3
         }
 
 
-        public List<Bullet> Bullets {  get { return bullets; } }    
+        public List<Bullet> Bullets { get { return bullets; } }
 
         public void Update(GameWindow window, GameTime gameTime)
         {
@@ -95,7 +112,7 @@ namespace Spaceshooter3
             {
                 InvulnerableTimer -= (float)gameTime.ElapsedGameTime.TotalSeconds;
 
-                if(InvulnerableTimer<=0)
+                if (InvulnerableTimer <= 0)
                 {
                     isInvulnerable = false;
                 }
@@ -125,18 +142,18 @@ namespace Spaceshooter3
 
             //Har det åkt till vänster
             if (vector.X < 0) vector.X = 0;
-            // Har det åkt till håger
+            // Har det åkt till höger
             if (vector.X > window.ClientBounds.Width - texture.Width) vector.X = window.ClientBounds.Width - texture.Width;
             // Har det åkt ut uptill
             if (vector.Y < 0) vector.Y = 0;
             // Har det åkt ut nedtill
             if (vector.Y > window.ClientBounds.Height - texture.Height) vector.Y = window.ClientBounds.Height - texture.Height;
 
-            // Spelaren vill sluta
+            // Spelaren vill skjuta
             if (keyboardState.IsKeyDown(Keys.Space))
             {
                 //Kontrollera om spelaren får skjuta
-                if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + 400)
+                if (gameTime.TotalGameTime.TotalMilliseconds > timeSinceLastBullet + timeBetweenBullets)
                 {
                     //skapa skottet:
                     Bullet temp = new Bullet(bulletTexture, vector.X + texture.Width / 2, vector.Y);
@@ -169,12 +186,12 @@ namespace Spaceshooter3
                 spriteBatch.Draw(texture, vector, Color.White);
             }
 
-            
+
             foreach (Bullet b in bullets)
             {
                 b.Draw(spriteBatch);
             }
-            
+
         }
 
         //Reset(), återställer spelaren för ett nytt spel
@@ -188,17 +205,20 @@ namespace Spaceshooter3
             speed.Y = speedY;
             //återställ ala skott:
             bullets.Clear();
+            timeBetweenBullets = 400;
             timeSinceLastBullet = 0;
             //återställer spelarens liv
             starterlives = 3;
             // återställ spelarens poäng:
             points = 0;
+            // återställer spelarens pengar:
+            cash = 0;
             // går så att spelaren lever igen:
             isAlive = true;
-            
+
         }
 
-       
+
 
         public void StartInvulnerability()
         {
@@ -208,7 +228,7 @@ namespace Spaceshooter3
             flashtimer = 0.0f;
         }
 
-        public void UpdateFlash (GameTime gameTime)
+        public void UpdateFlash(GameTime gameTime)
         {
             if (isFlashing)
             {
