@@ -12,8 +12,6 @@ namespace Spaceshooter3
     public class Game1 : Game
     {
 
-        //TA BORT HIGHSCORE KOD? HIGHSCORE EJ KLAR!!!!!!!!!!!!!!!!
-
         private GraphicsDeviceManager _graphics;
         private SpriteBatch spriteBatch;
         SpriteFont myFont;
@@ -103,7 +101,7 @@ namespace Spaceshooter3
                 {
                     case State.EnterHighScore: // Skriv in oss i listan
                                                // Fortsätt så länge HighScore.EnterUpdate() returnerar true:
-                        if (highScore.EnterUpdate(gameTime, statMaster.Points))
+                        if (highScore.EnterUpdate(gameTime, GameElements.GetStatMasterInstance().Points))
                             currentStateScore = State.PrintHighScore;
                         break;
                     default: // Highscore-listan (tar emot en tangent)

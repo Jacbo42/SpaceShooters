@@ -43,7 +43,7 @@ namespace Spaceshooter3
         // FIXA HIGHSCORE. FIXA FLASHING SÅ ATT MAN FLASHAR, INTE BARA BLIR OSYNLIG. FIXA START SÅ ATT CONTINUE OCH START ÄR HELT OLIKA!!!!!!!!!!!!!!
         // FIXA OCKSÅ SÅ ATT DET FINNS EN BILD I MENU SOM FUNGERAR SOM INTRUSKTIONER TILL HUR MAN SPELAR
 
-
+        //FIXA HiGHSCOREDRAW, GENOM ATT ANVÄNDA streamreader
 
 
         // olika gamestates
@@ -70,6 +70,10 @@ namespace Spaceshooter3
         {
             menu = new Menu((int)State.Menu);
             highscore = new HighScore((int)State.HighScore);
+
+
+            //HighScore textfilen
+            highscore.LoadFromFile("highscore.txt");
 
 
 
@@ -99,11 +103,12 @@ namespace Spaceshooter3
 
             goldCoinSprite = content.Load<Texture2D>("images/powerups/coin");
             printText = new PrintText(content.Load<SpriteFont>("myFont"));
-
-
-
-
         }
+
+        public static StatMaster GetStatMasterInstance()
+{
+    return statMaster;
+}
 
         //MenuUpdate(), kontrollerar om användaren väljer något av menyvalen
 
@@ -294,11 +299,9 @@ namespace Spaceshooter3
             {
                 //return State.GameOver;
                 
-
-                
                 Reset(window, content);
+                
                 return State.HighScore;
-
             }
 
             background.Update(window);
@@ -349,7 +352,28 @@ namespace Spaceshooter3
 
         public static void HighScoreDraw(SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
+            if (highscore != null && (highscore.HighScoreLista.Count > 0 && highscore.HighScoreLista.Count < 5))
+            {
+                //Positionen för att rita high score listan
+                Vector2 position = new Vector2(700, 50);
 
+                //Rita varje high score item
+                foreach (HSItem highScoreItem in highscore.HighScoreLista)
+                {
+                    string scoreText = $"{highScoreItem.Name}: {highScoreItem.Points}";
+                    spriteBatch.DrawString(spriteFont, scoreText, position, Color.White);
+
+                    // Move down the position for the next line
+                    position.Y += spriteFont.MeasureString(scoreText).Y + 5;
+                }
+            }
+            else
+            {
+                // Handle the case where there are no high scores
+                // Om det inte finns något i high score listan
+                string noHighScoresText = "No high scores available.";
+                spriteBatch.DrawString(spriteFont, noHighScoresText, new Vector2(700, 50), Color.White);
+            }
 
 
             //Rita ut highscore- listan

@@ -32,6 +32,11 @@ namespace Spaceshooter3
         {
             this.maxInList = maxInList;
         }
+        public List<HSItem> HighScoreLista
+        {
+            get { return highscore; }
+            set { highscore = value; }
+        }
 
         // =======================================================================
         // Sort(),  metod som sorterar listan. Metoden
@@ -86,6 +91,10 @@ namespace Spaceshooter3
                 // elementet har index 5. Vi gör highscore.RemoveAt(5):
                 highscore.RemoveAt(maxInList);
             }
+
+
+           
+
         }
 
         // =======================================================================
@@ -125,6 +134,7 @@ namespace Spaceshooter3
                 text += h.Name + " " + h.Points + "\n";
 
             spriteBatch.DrawString(font, text, Vector2.Zero, Color.White);
+            
         }
 
         // =======================================================================
@@ -187,6 +197,7 @@ namespace Spaceshooter3
         {
             string text = "ENTER NAME:" + name + currentChar;
             spriteBatch.DrawString(font, text, Vector2.Zero, Color.White);
+
 
         }
 
