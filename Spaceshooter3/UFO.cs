@@ -13,7 +13,6 @@ namespace Spaceshooter3
     {
         List<EnemyBullet> enemybullets;
         Texture2D bulletTexture;
-        double timeSinceLastBullet = 0;
         Random random = new Random();
         public UFO(Texture2D texture, float X, float Y, Texture2D bulletTexture) : base(texture, X, Y, 2f, 0.1f)
         {

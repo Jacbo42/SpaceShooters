@@ -17,14 +17,11 @@ namespace Spaceshooter3
         //Första valet i listan är valt
 
         private List<ShopItem> shop;
-        private int selected = 0;
         private PrintText printText;
-        private static Texture2D shopSprite;
         private Player player;
 
         //currentHeigt används för att rita ut shopItems på olika höjd:
 
-        float currentHeight = 0;
 
         // det state som representerar själva menyn
         int ShopState;

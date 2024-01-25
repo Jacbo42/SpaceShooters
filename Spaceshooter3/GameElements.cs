@@ -28,6 +28,8 @@ namespace Spaceshooter3
         static PrintText printText;
         static Menu menu;
         static Shop shop;
+        static HighScore highscore;
+        
 
         static List<EnemyBullet> enemybullets;
 
@@ -37,7 +39,7 @@ namespace Spaceshooter3
         //Efter detta är det kanske väldigt få prioriteringar kvar? Optimera levels osv?
 
         //FIXA DESSA
-        // FIXA POINTS. FIXA HIGHSCORE. FIXA FLASHING SÅ ATT MAN FLASHAR, INTE BARA BLIR OSYNLIG. FIXA START SÅ ATT CONTINUE OCH START ÄR HELT OLIKA!!!!!!!!!!!!!!
+        // FIXA HIGHSCORE. FIXA FLASHING SÅ ATT MAN FLASHAR, INTE BARA BLIR OSYNLIG. FIXA START SÅ ATT CONTINUE OCH START ÄR HELT OLIKA!!!!!!!!!!!!!!
         // FIXA OCKSÅ SÅ ATT DET FINNS EN BILD I MENU SOM FUNGERAR SOM INTRUSKTIONER TILL HUR MAN SPELAR
 
 
@@ -45,8 +47,10 @@ namespace Spaceshooter3
 
         // olika gamestates
 
-        public enum State { Menu, Run, HighScore, Quit, Shop, Continue };
+        public enum State { Menu, Run, HighScore, Quit, Shop, Continue, GameOver };
         public static State currentState;
+
+        
 
         //Initalize(); anropas av Game1.Initialize() då spelet startar. Här ligger all kod för att initiera objekt och skapa dem dock 
         //inte laddningen av olika filer
@@ -64,12 +68,15 @@ namespace Spaceshooter3
         public static void LoadContent(ContentManager content, GameWindow window)
         {
             menu = new Menu((int)State.Menu);
+            highscore = new HighScore((int)State.HighScore);
 
             menu.AddItem(content.Load<Texture2D>("images/menu/continue"), (int)State.Continue);
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)State.Quit);
             menu.AddItem(content.Load<Texture2D>("images/menu/GOTOSHOP"), (int)State.Shop);
+            
+
 
             //Shop meny laddas in här
             shop = new Shop((int)State.Shop, player);
@@ -122,7 +129,7 @@ namespace Spaceshooter3
                 }
                 
             }
-            if (keyboardState.IsKeyDown(Keys.D1) && player.UpgradeLimit < 3)
+            if (keyboardState.IsKeyDown(Keys.D1))
             {
                 if (player.Cash >= 10)
                 {
@@ -172,6 +179,7 @@ namespace Spaceshooter3
                     {
                         e.IsAlive = false;
                         player.Points++;
+                        player.Kills++;
                     }
                 }
                 
@@ -215,9 +223,9 @@ namespace Spaceshooter3
 
             //Ny level
 
-            if (player.Points >= 10)
+            if (player.Kills >= 10)
             {
-                player.Points = 0;
+                player.Kills = 0;
                 Genererafiender(window, content);
                 player.Level++;
 
@@ -279,8 +287,12 @@ namespace Spaceshooter3
 
             if (!player.IsAlive) //spelaren är död
             {
+                //return State.GameOver;
+                
+
+                
                 Reset(window, content);
-                return State.Menu;
+                return State.HighScore;
 
             }
 
@@ -291,6 +303,23 @@ namespace Spaceshooter3
 
 
         }
+
+        public static State GameOver(ContentManager content, SpriteBatch spriteBatch, HighScore highScore)
+        {
+            printText.Print("GAME OVER" + player.Points, spriteBatch, new Vector2(500, 360), Color.Black);
+
+
+           
+
+
+            return State.GameOver;
+
+
+            
+        }
+
+        
+
 
         //RunDraw(), metod för att rita ut "själva spelet"
 
@@ -310,16 +339,11 @@ namespace Spaceshooter3
             printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
             printText.Print("Time: " + player.invulnerableTimer, spriteBatch, new Vector2(0, 30), Color.Black);
             printText.Print("Level: " + player.Level, spriteBatch, new Vector2(0, 45), Color.Black);
-
-
-
-
-
         }
 
         //HighScoreUpdate(), update-metod för highscore-listan
 
-        public static State HighScoreUpdate()
+        public static State HighScoreUpdate(GameTime gameTime)
         {
             KeyboardState keyboardState = Keyboard.GetState();
             //Återgå till menyn om man trycker ESC
@@ -330,8 +354,9 @@ namespace Spaceshooter3
 
         //HighScoreDraw(), ritar ut highscorelistan
 
-        public static void HighScoreDraw(SpriteBatch spriteBatch)
+        public static void HighScoreDraw(SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
+
             //Rita ut highscore- listan
         }
 

@@ -15,13 +15,14 @@ namespace Spaceshooter3
         //TA BORT HIGHSCORE KOD? HIGHSCORE EJ KLAR!!!!!!!!!!!!!!!!
 
         private GraphicsDeviceManager _graphics;
-        private SpriteBatch _spriteBatch;
+        private SpriteBatch spriteBatch;
         SpriteFont myFont;
         HighScore highScore;
-        Random random;
-        //enum State { PrintHighScore, EnterHighScore };
-        //State currentState;
+        Player player;
 
+        Random random;
+        enum State { PrintHighScore, EnterHighScore };
+        State currentStateScore;
 
 
         public Game1()
@@ -47,7 +48,7 @@ namespace Spaceshooter3
 
         protected override void LoadContent()
         {
-            _spriteBatch = new SpriteBatch(GraphicsDevice);
+            spriteBatch = new SpriteBatch(GraphicsDevice);
             myFont = Content.Load<SpriteFont>("myFont");
 
             GameElements.LoadContent(Content, Window);
@@ -79,7 +80,7 @@ namespace Spaceshooter3
                     GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
                     break;
                 case GameElements.State.HighScore:
-                    GameElements.currentState = GameElements.HighScoreUpdate();
+                    GameElements.currentState = GameElements.HighScoreUpdate(gameTime);
                     break;
                 case GameElements.State.Quit:
                     this.Exit();
@@ -90,23 +91,27 @@ namespace Spaceshooter3
                 case GameElements.State.Continue:
                     GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
                     break;
+                case GameElements.State.GameOver:
+                    GameElements.currentState = GameElements.GameOver(Content, spriteBatch, highScore);
+                    break;
+
                 default: //menyn
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
             }
-            //switch (currentState)
-            //{
-            //    case State.EnterHighScore: // Skriv in oss i listan
-            //                               // Fortsätt så länge HighScore.EnterUpdate() returnerar true:
-            //        if (highScore.EnterUpdate(gameTime, 10))
-            //            currentState = State.PrintHighScore;
-            //        break;
-            //    default: // Highscore-listan (tar emot en tangent)
-            //        KeyboardState keyboardState = Keyboard.GetState();
-            //        if (keyboardState.IsKeyDown(Keys.E))
-            //            currentState = State.EnterHighScore;
-            //        break;
-            //}
+            switch (currentStateScore)
+            {
+                case State.EnterHighScore: // Skriv in oss i listan
+                                           // Fortsätt så länge HighScore.EnterUpdate() returnerar true:
+                    if (highScore.EnterUpdate(gameTime, 10))
+                        currentStateScore = State.PrintHighScore;
+                    break;
+                default: // Highscore-listan (tar emot en tangent)
+                    KeyboardState keyboardState = Keyboard.GetState();
+                    if (keyboardState.IsKeyDown(Keys.E))
+                        currentStateScore = State.EnterHighScore;
+                    break;
+            }
 
             // TODO: Add your update logic here
 
@@ -117,28 +122,41 @@ namespace Spaceshooter3
         {
             GraphicsDevice.Clear(Color.CornflowerBlue);
 
-            _spriteBatch.Begin();
+            spriteBatch.Begin();
+            
             switch (GameElements.currentState)
             {
                 case GameElements.State.Run: //Kör själva spelet
-                    GameElements.RunDraw(_spriteBatch);
+                    GameElements.RunDraw(spriteBatch);
                     break;
                 case GameElements.State.HighScore:
-                    GameElements.HighScoreDraw(_spriteBatch);
+                    GameElements.HighScoreDraw(spriteBatch, myFont);
                     break;
                 case GameElements.State.Quit:
                     this.Exit();
                     break;
                 case GameElements.State.Shop:
-                    GameElements.ShopDraw(_spriteBatch);
+                    GameElements.ShopDraw(spriteBatch);
+                    break;
+                //case GameElements.State.GameOver:
+                //    GameElements.GameOver(spriteBatch);
                     break;
                 default: //menyn
-                    GameElements.MenuDraw(_spriteBatch);
+                    GameElements.MenuDraw(spriteBatch);
                     break;
             }
-            
-            
-            _spriteBatch.End();
+            switch (currentStateScore)
+            {
+                case State.EnterHighScore: // Skriv in oss i listan
+                    highScore.EnterDraw(spriteBatch, myFont);
+                    break;
+                default: // Rita ut highscore-listan
+                    highScore.PrintDraw(spriteBatch, myFont);
+                    break;
+            }
+
+
+            spriteBatch.End();
             // TODO: Add your drawing code here
 
             base.Draw(gameTime);

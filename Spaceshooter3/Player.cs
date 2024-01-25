@@ -19,6 +19,7 @@ namespace Spaceshooter3
         Texture2D bulletTexture;
         double timeSinceLastBullet = 0;
         int points = 0;
+        int kills = 0;
         int cash = 0;
         int starterlives = 3;
         int level = 0;
@@ -54,6 +55,11 @@ namespace Spaceshooter3
             set { timeBetweenBullets = value; }
         }
 
+        public int Kills
+        {
+            get { return kills; }
+            set { kills = value; }
+        }
         public int UpgradeLimit
         {
             get { return upgradelimit; }
