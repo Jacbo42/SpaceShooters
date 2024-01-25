@@ -120,7 +120,7 @@ namespace Spaceshooter3
         // =======================================================================
         public void PrintDraw(SpriteBatch spriteBatch, SpriteFont font)
         {
-            string text = "HIGHSCORE\n";
+            string text = "HIGHSCORE (Press E to continue, ESC to get to menu)\n";
             foreach (HSItem h in highscore)
                 text += h.Name + " " + h.Points + "\n";
 

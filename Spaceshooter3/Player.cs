@@ -17,12 +17,8 @@ namespace Spaceshooter3
     {
         List<Bullet> bullets;
         Texture2D bulletTexture;
+        StatMaster statMaster;
         double timeSinceLastBullet = 0;
-        int points = 0;
-        int kills = 0;
-        int cash = 0;
-        int starterlives = 3;
-        int level = 0;
         double timeBetweenBullets = 400; // Initial value
         int upgradelimit = 0;
 
@@ -42,6 +38,7 @@ namespace Spaceshooter3
         public Player(Texture2D texture, float X, float Y, float speedX, float speedY, Texture2D bulletTexture) : base(texture, X, Y, speedX, speedY)
         {
             bullets = new List<Bullet>();
+            statMaster = new StatMaster();
             this.bulletTexture = bulletTexture;
         }
 
@@ -55,41 +52,17 @@ namespace Spaceshooter3
             set { timeBetweenBullets = value; }
         }
 
-        public int Kills
-        {
-            get { return kills; }
-            set { kills = value; }
-        }
         public int UpgradeLimit
         {
-            get { return upgradelimit; }
-            set { upgradelimit = value; }
+            get { return upgradelimit; } set {  upgradelimit = value; }
         }
-        public int Points
-        {
-            get { return points; }
-            set { points = value; }
-        }
-        public int Level
-        {
-            get { return level; }
-            set { level = value; }
-        }
+
         public bool IsInvulnerable
         {
             get { return isInvulnerable; }
             set { isInvulnerable = value; }
         }
-        public int Cash
-        {
-            get { return cash; }
-            set { cash = value; }
-        }
-        public int Lives
-        {
-            get { return starterlives; }
-            set { starterlives = value; }
-        }
+        
         public float invulnerabilityDuration
         {
             get { return invulnerabilityDuration; }
@@ -214,11 +187,13 @@ namespace Spaceshooter3
             timeBetweenBullets = 400;
             timeSinceLastBullet = 0;
             //återställer spelarens liv
-            starterlives = 3;
+            statMaster.Starterlives = 3;
             // återställ spelarens poäng:
-            points = 0;
+            statMaster.Points = 0;
             // återställer spelarens pengar:
-            cash = 0;
+            statMaster.Cash = 0;
+            //Återställ kills, så att det inte blir konstigt när spelaren kör igång igen och en ny level kommer nästan omedelbart
+            statMaster.Kills = 0;
             // går så att spelaren lever igen:
             isAlive = true;
 
@@ -255,8 +230,8 @@ namespace Spaceshooter3
             {
                 if (!IsInvulnerable)
                 {
-                    Lives--;
-                    if (Lives <= 0)
+                    statMaster.Starterlives--;
+                    if (statMaster.Starterlives <= 0)
                     {
                         IsAlive = false;
                     }
@@ -288,8 +263,8 @@ namespace Spaceshooter3
             {
                 if (!IsInvulnerable)
                 {
-                    Lives--;
-                    if (Lives <= 0)
+                    statMaster.Starterlives--;
+                    if (statMaster.Starterlives <= 0)
                     {
                         IsAlive = false;
                     }

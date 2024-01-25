@@ -29,6 +29,7 @@ namespace Spaceshooter3
         static Menu menu;
         static Shop shop;
         static HighScore highscore;
+        static StatMaster statMaster;
         
 
         static List<EnemyBullet> enemybullets;
@@ -47,7 +48,7 @@ namespace Spaceshooter3
 
         // olika gamestates
 
-        public enum State { Menu, Run, HighScore, Quit, Shop, Continue, GameOver };
+        public enum State { Menu, Run, HighScore, Quit, Shop, Continue };
         public static State currentState;
 
         
@@ -70,6 +71,8 @@ namespace Spaceshooter3
             menu = new Menu((int)State.Menu);
             highscore = new HighScore((int)State.HighScore);
 
+
+
             menu.AddItem(content.Load<Texture2D>("images/menu/continue"), (int)State.Continue);
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
@@ -82,6 +85,8 @@ namespace Spaceshooter3
             shop = new Shop((int)State.Shop, player);
             shop.AddItem(content.Load<Texture2D>("images/shopmenu/shopbackground"), (int)State.Shop);
 
+            //Statistik för spelaren
+            statMaster = new StatMaster();
 
 
             background = new Background(content.Load<Texture2D>("images/background"), window);
@@ -121,20 +126,20 @@ namespace Spaceshooter3
             KeyboardState keyboardState = Keyboard.GetState();
             if (keyboardState.IsKeyDown(Keys.D1) && player.UpgradeLimit < 3)
             {
-                if (player.Cash >= 10)
+                if (statMaster.Cash >= 10)
                 {
                     player.UpgradeLimit++;
                     player.TimeBetweenBullets -= 50;
-                    player.Cash -= 10;
+                    statMaster.Cash -= 10;
                 }
                 
             }
             if (keyboardState.IsKeyDown(Keys.D1))
             {
-                if (player.Cash >= 10)
+                if (statMaster.Cash >= 10)
                 {
-                    player.Lives += 1;
-                    player.Cash -= 10;
+                    statMaster.Starterlives += 1;
+                    statMaster.Cash -= 10;
                 }
 
             }
@@ -149,7 +154,7 @@ namespace Spaceshooter3
         public static void ShopDraw(SpriteBatch spriteBatch)
         {
             shop.Draw(spriteBatch);
-            printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
+            printText.Print("Cash: " + statMaster.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
 
         }
 
@@ -178,8 +183,8 @@ namespace Spaceshooter3
                     if (e.CheckCollision(b))
                     {
                         e.IsAlive = false;
-                        player.Points++;
-                        player.Kills++;
+                        statMaster.Points++;
+                        statMaster.Kills++;
                     }
                 }
                 
@@ -223,11 +228,11 @@ namespace Spaceshooter3
 
             //Ny level
 
-            if (player.Kills >= 10)
+            if (statMaster.Kills >= 10)
             {
-                player.Kills = 0;
+                statMaster.Kills = 0;
                 Genererafiender(window, content);
-                player.Level++;
+                statMaster.Level++;
 
             }
 
@@ -259,7 +264,7 @@ namespace Spaceshooter3
                     {
                         // Ta bort myntet vid kollision:
                         goldCoins.Remove(gc);
-                        player.Points++; // och ge spelaren poäng
+                        statMaster.Points++; // och ge spelaren poäng
                     }
 
                 }
@@ -274,7 +279,7 @@ namespace Spaceshooter3
                     {
                         // Ta bort myntet vid kollision:
                         goldCoins.Remove(gc);
-                        player.Cash++; // och ge spelaren cash
+                        statMaster.Cash++; // och ge spelaren cash
                     }
 
                 }
@@ -304,19 +309,7 @@ namespace Spaceshooter3
 
         }
 
-        public static State GameOver(ContentManager content, SpriteBatch spriteBatch, HighScore highScore)
-        {
-            printText.Print("GAME OVER" + player.Points, spriteBatch, new Vector2(500, 360), Color.Black);
-
-
-           
-
-
-            return State.GameOver;
-
-
-            
-        }
+        
 
         
 
@@ -335,10 +328,10 @@ namespace Spaceshooter3
             {
                 gc.Draw(spriteBatch);
             }
-            printText.Print("Points: " + player.Points, spriteBatch, new Vector2(0, 0), Color.Black);
-            printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
+            printText.Print("Points: " + statMaster.Points, spriteBatch, new Vector2(0, 0), Color.Black);
+            printText.Print("Cash: " + statMaster.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
             printText.Print("Time: " + player.invulnerableTimer, spriteBatch, new Vector2(0, 30), Color.Black);
-            printText.Print("Level: " + player.Level, spriteBatch, new Vector2(0, 45), Color.Black);
+            printText.Print("Level: " + statMaster.Level, spriteBatch, new Vector2(0, 45), Color.Black);
         }
 
         //HighScoreUpdate(), update-metod för highscore-listan
@@ -356,6 +349,8 @@ namespace Spaceshooter3
 
         public static void HighScoreDraw(SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
+
+
 
             //Rita ut highscore- listan
         }

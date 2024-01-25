@@ -18,9 +18,8 @@ namespace Spaceshooter3
         private SpriteBatch spriteBatch;
         SpriteFont myFont;
         HighScore highScore;
-        Player player;
+        StatMaster statMaster;
 
-        Random random;
         enum State { PrintHighScore, EnterHighScore };
         State currentStateScore;
 
@@ -42,6 +41,7 @@ namespace Spaceshooter3
             GameElements.currentState = GameElements.State.Menu;
             GameElements.Initialize();
             highScore = new HighScore(10);
+            statMaster = new StatMaster();
             
             base.Initialize();
         }
@@ -91,27 +91,29 @@ namespace Spaceshooter3
                 case GameElements.State.Continue:
                     GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
                     break;
-                case GameElements.State.GameOver:
-                    GameElements.currentState = GameElements.GameOver(Content, spriteBatch, highScore);
-                    break;
+                
 
                 default: //menyn
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
             }
-            switch (currentStateScore)
+            if (GameElements.currentState == GameElements.State.HighScore)
             {
-                case State.EnterHighScore: // Skriv in oss i listan
-                                           // Fortsätt så länge HighScore.EnterUpdate() returnerar true:
-                    if (highScore.EnterUpdate(gameTime, 10))
-                        currentStateScore = State.PrintHighScore;
-                    break;
-                default: // Highscore-listan (tar emot en tangent)
-                    KeyboardState keyboardState = Keyboard.GetState();
-                    if (keyboardState.IsKeyDown(Keys.E))
-                        currentStateScore = State.EnterHighScore;
-                    break;
+                switch (currentStateScore)
+                {
+                    case State.EnterHighScore: // Skriv in oss i listan
+                                               // Fortsätt så länge HighScore.EnterUpdate() returnerar true:
+                        if (highScore.EnterUpdate(gameTime, statMaster.Points))
+                            currentStateScore = State.PrintHighScore;
+                        break;
+                    default: // Highscore-listan (tar emot en tangent)
+                        KeyboardState keyboardState = Keyboard.GetState();
+                        if (keyboardState.IsKeyDown(Keys.E))
+                            currentStateScore = State.EnterHighScore;
+                        break;
+                }
             }
+            
 
             // TODO: Add your update logic here
 
@@ -145,15 +147,19 @@ namespace Spaceshooter3
                     GameElements.MenuDraw(spriteBatch);
                     break;
             }
-            switch (currentStateScore)
+            if (GameElements.currentState == GameElements.State.HighScore)
             {
-                case State.EnterHighScore: // Skriv in oss i listan
-                    highScore.EnterDraw(spriteBatch, myFont);
-                    break;
-                default: // Rita ut highscore-listan
-                    highScore.PrintDraw(spriteBatch, myFont);
-                    break;
+                switch (currentStateScore)
+                {
+                    case State.EnterHighScore: // Skriv in oss i listan
+                        highScore.EnterDraw(spriteBatch, myFont);
+                        break;
+                    default: // Rita ut highscore-listan
+                        highScore.PrintDraw(spriteBatch, myFont);
+                        break;
+                }
             }
+            
 
 
             spriteBatch.End();
