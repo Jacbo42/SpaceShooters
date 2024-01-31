@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// Det är denna klass som överser bakgrunden till menyn och själva spelet.
+    /// </summary>
     internal class Background
     {
         BackgroundSprite[,] background;
@@ -66,6 +69,10 @@ namespace Spaceshooter3
                     background[i, j].Draw(spriteBatch);
                 }
             }
+        }
+        public void MenuBackground(SpriteBatch spriteBatch)
+        {
+
         }
     }
 }

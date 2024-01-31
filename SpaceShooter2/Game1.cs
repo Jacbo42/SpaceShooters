@@ -10,8 +10,6 @@ namespace SpaceShooter2
     public class Game1 : Game
     {
 
-        //TODO, GÖR SÅ ATT FIENDER BÖRJAR LÄNGRE BORT FRÅN SPELAREN
-        //GÖR SÅ ATT FIENDER KAN SKAPAS UNDER SPELETS GÅNG ISTÄLLET FÖR ATT DET BARA FINNS DE I BÖRJAN
 
 
         private GraphicsDeviceManager _graphics;
@@ -40,7 +38,6 @@ namespace SpaceShooter2
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
            goldCoins = new List<GoldCoin>();
 
@@ -82,7 +79,6 @@ namespace SpaceShooter2
 
             
 
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -169,7 +165,6 @@ namespace SpaceShooter2
             
 
 
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -198,7 +193,6 @@ namespace SpaceShooter2
 
 
 
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

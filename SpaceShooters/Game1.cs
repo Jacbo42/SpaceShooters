@@ -23,7 +23,6 @@ namespace SpaceShooters
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
             
 
@@ -49,7 +48,6 @@ namespace SpaceShooters
             ship_texture = Content.Load<Texture2D>("ship");
 
 
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -95,7 +93,6 @@ namespace SpaceShooters
             if (ship_vector.Y > Window.ClientBounds.Height - ship_texture.Height) ship_vector.Y = Window.ClientBounds.Height - ship_texture.Height;
 
 
-            // TODO: Add your update logic here
 
 
 
@@ -111,7 +108,6 @@ namespace SpaceShooters
             _spriteBatch.End();
 
 
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

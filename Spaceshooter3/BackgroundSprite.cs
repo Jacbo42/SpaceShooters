@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// Kontrollerar bakgrundens rörelse
+    /// </summary>
     internal class BackgroundSprite : GameObjekt
     {
         //BackgroundSprite(), konstruktor för att skapa BackgroundSprite-objekt

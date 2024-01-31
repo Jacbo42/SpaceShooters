@@ -8,9 +8,12 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// Klassen som är mine fienden i spelet
+    /// </summary>
     internal class Mine : Enemy
     {
-        //mine konstrukto
+        //mine konstruktor
 
         public Mine(Texture2D texture, float X, float Y) : base(texture, X, Y, 6f, 0.3f)
         {

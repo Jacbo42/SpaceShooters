@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// har uppsikt över objekt med rörelse
+    /// </summary>
     abstract class MovingObject: GameObjekt
     {
         protected Vector2 speed; //hastigheten på objektet

@@ -19,6 +19,7 @@ namespace Spaceshooter3
     static class GameElements
     {
         static Background background;
+        static Background MenuBackground;
 
         
         static Player player;
@@ -37,18 +38,14 @@ namespace Spaceshooter3
 
         
 
-        //Efter detta är det kanske väldigt få prioriteringar kvar? Optimera levels osv?
 
-        //FIXA DESSA
-        // FIXA HIGHSCORE. FIXA FLASHING SÅ ATT MAN FLASHAR, INTE BARA BLIR OSYNLIG. FIXA START SÅ ATT CONTINUE OCH START ÄR HELT OLIKA!!!!!!!!!!!!!!
         // FIXA OCKSÅ SÅ ATT DET FINNS EN BILD I MENU SOM FUNGERAR SOM INTRUSKTIONER TILL HUR MAN SPELAR
 
-        //FIXA HiGHSCOREDRAW, GENOM ATT ANVÄNDA streamreader
 
 
         // olika gamestates
 
-        public enum State { Menu, Run, HighScore, Quit, Shop, Continue };
+        public enum State { Menu, Run, HighScore, Quit, Shop };
         public static State currentState;
 
         
@@ -69,32 +66,32 @@ namespace Spaceshooter3
         public static void LoadContent(ContentManager content, GameWindow window)
         {
             menu = new Menu((int)State.Menu);
-            highscore = new HighScore((int)State.HighScore);
+            highscore = new HighScore(10);
 
 
             //HighScore textfilen
             highscore.LoadFromFile("highscore.txt");
 
-
-
-            menu.AddItem(content.Load<Texture2D>("images/menu/continue"), (int)State.Continue);
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
             menu.AddItem(content.Load<Texture2D>("images/menu/exit"), (int)State.Quit);
             menu.AddItem(content.Load<Texture2D>("images/menu/GOTOSHOP"), (int)State.Shop);
+
+            //Meny bakgrund
+
+            MenuBackground = new Background(content.Load<Texture2D>("images/menu/MenuBackground"), window);
+
+            //Shop meny och shopbackground laddas in här
+            shop = new Shop((int)State.Shop);
+            shop.AddItem(content.Load<Texture2D>("images/shopmenu/shopbackground0"), (int)State.Shop);
             
-
-
-            //Shop meny laddas in här
-            shop = new Shop((int)State.Shop, player);
-            shop.AddItem(content.Load<Texture2D>("images/shopmenu/shopbackground"), (int)State.Shop);
-
             //Statistik för spelaren
             statMaster = new StatMaster();
 
-
+            //Generell bakground (alltså bara rymden)
             background = new Background(content.Load<Texture2D>("images/background"), window);
 
+            //Själva spelkaraktären
             player = new Player(content.Load<Texture2D>("ship"), 380, 400, 2.5f, 4.5f, content.Load<Texture2D>("images/player/bullet")); //Ändra ship delen
 
             //skapa fiender
@@ -105,10 +102,15 @@ namespace Spaceshooter3
             printText = new PrintText(content.Load<SpriteFont>("myFont"));
         }
 
+        /// <summary>
+        /// Används för att transportera värden från StatMaster till andra classer. Detta är den enda riktiga användningen av globala variabler, tyvärr.
+        /// </summary>
+        /// <returns></returns>
         public static StatMaster GetStatMasterInstance()
-{
-    return statMaster;
-}
+        {
+            
+            return statMaster;
+        }
 
         //MenuUpdate(), kontrollerar om användaren väljer något av menyvalen
 
@@ -122,14 +124,23 @@ namespace Spaceshooter3
 
         public static void MenuDraw(SpriteBatch spriteBatch)
         {
-            background.Draw(spriteBatch);
+            //skapar menybakgrund
+            MenuBackground.Draw(spriteBatch);
+            //skapar meny valen
             menu.Draw(spriteBatch);
-        }
 
+        }
+        /// <summary>
+        /// Detta uppdaterar butiken enligt speltiden. Här kan man köpa uppgraderingar, men bara till en viss gräns
+        /// </summary>
+        /// <param name="gameTime"></param>
+        /// <returns></returns>
         public static State ShopUpdate(GameTime gameTime)
         {
+            //Detta gör det möjligt för datorn att ta emot tangent input
             KeyboardState keyboardState = Keyboard.GetState();
-            if (keyboardState.IsKeyDown(Keys.D1) && player.UpgradeLimit < 3)
+            //Detta tillåter spelaren att få kortare tid mellan skott, men kan bara uppgraderas 3 gånger
+            if (keyboardState.IsKeyDown(Keys.D1) && player.UpgradeLimit <= 3)
             {
                 if (statMaster.Cash >= 10)
                 {
@@ -139,7 +150,8 @@ namespace Spaceshooter3
                 }
                 
             }
-            if (keyboardState.IsKeyDown(Keys.D1))
+            //Tillåter spelaren att köpa nya liv.
+            if (keyboardState.IsKeyDown(Keys.D2))
             {
                 if (statMaster.Cash >= 10)
                 {
@@ -148,17 +160,19 @@ namespace Spaceshooter3
                 }
 
             }
+            //tillbaks till meny
             if (keyboardState.IsKeyDown(Keys.Escape)) { return State.Menu; }
-            if (keyboardState.IsKeyDown(Keys.C)) { return State.Continue; }
 
+            //Uppdaterar igen
             return (State)shop.Update(gameTime);
         }
 
-        //MenuDraw(), ritar ut menyn
 
         public static void ShopDraw(SpriteBatch spriteBatch)
         {
+            //Ritar butiken
             shop.Draw(spriteBatch);
+            //Ritar värdet på ens pengar
             printText.Print("Cash: " + statMaster.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
 
         }
@@ -168,18 +182,18 @@ namespace Spaceshooter3
 
         public static State RunUpdate(ContentManager content, GameWindow window, GameTime gameTime)
         {
-
             //Uppdatera spelarens position
             player.Update(window, gameTime);
             //Gå igenom alla fiender
-
+            //Möjliggör tangent input
             KeyboardState keyboardState = Keyboard.GetState();
-
+            //Tillbaks till meny
             if (keyboardState.IsKeyDown(Keys.Escape))
             {
                 return State.Menu;
             }
-
+            
+            //Själva collision logiken med fiende och player skott
             foreach (Enemy e in enemies.ToList())
             {
                 //Kontrollera om fienden kolliderar med ett skott
@@ -215,7 +229,7 @@ namespace Spaceshooter3
                 }
 
             }
-
+            //Collision logik med fiende skott
             foreach (EnemyBullet e in enemybullets.ToList())
             {
 
@@ -231,7 +245,7 @@ namespace Spaceshooter3
 
             }
 
-            //Ny level
+            //Ny level var tionde kill
 
             if (statMaster.Kills >= 10)
             {
@@ -242,10 +256,10 @@ namespace Spaceshooter3
             }
 
 
-            //Guldmynten ska uppstå slumpmässigt, en chans på 200
+            //Guldmynten ska uppstå slumpmässigt, en chans på 125
 
             Random random = new Random();
-            int newCoin = random.Next(1, 150);
+            int newCoin = random.Next(1, 125);
             if (newCoin == 1) //Ok, nytt guldmynt ska uppstå
             {
                 //var ska guldmyntet ska uppstå:
@@ -303,24 +317,17 @@ namespace Spaceshooter3
                 
                 return State.HighScore;
             }
-
+            //Updaterar bakgrunden så att det "flyter" neråt
             background.Update(window);
 
-
             return State.Run;
-
-
         }
-
-        
-
-        
-
 
         //RunDraw(), metod för att rita ut "själva spelet"
 
         public static void RunDraw(SpriteBatch spriteBatch)
         {
+            
             background.Draw(spriteBatch);
             player.Draw(spriteBatch);
             foreach (Enemy e in enemies)
@@ -331,9 +338,10 @@ namespace Spaceshooter3
             {
                 gc.Draw(spriteBatch);
             }
+            //Ritar ut olika värden som spelaren har.
             printText.Print("Points: " + statMaster.Points, spriteBatch, new Vector2(0, 0), Color.Black);
             printText.Print("Cash: " + statMaster.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
-            printText.Print("Time: " + player.invulnerableTimer, spriteBatch, new Vector2(0, 30), Color.Black);
+            printText.Print("Time: " + Math.Ceiling(player.invulnerableTimer), spriteBatch, new Vector2(0, 30), Color.Black);
             printText.Print("Level: " + statMaster.Level, spriteBatch, new Vector2(0, 45), Color.Black);
         }
 
@@ -352,32 +360,10 @@ namespace Spaceshooter3
 
         public static void HighScoreDraw(SpriteBatch spriteBatch, SpriteFont spriteFont)
         {
-            if (highscore != null && (highscore.HighScoreLista.Count > 0 && highscore.HighScoreLista.Count < 5))
-            {
-                //Positionen för att rita high score listan
-                Vector2 position = new Vector2(700, 50);
-
-                //Rita varje high score item
-                foreach (HSItem highScoreItem in highscore.HighScoreLista)
-                {
-                    string scoreText = $"{highScoreItem.Name}: {highScoreItem.Points}";
-                    spriteBatch.DrawString(spriteFont, scoreText, position, Color.White);
-
-                    // Move down the position for the next line
-                    position.Y += spriteFont.MeasureString(scoreText).Y + 5;
-                }
-            }
-            else
-            {
-                // Handle the case where there are no high scores
-                // Om det inte finns något i high score listan
-                string noHighScoresText = "No high scores available.";
-                spriteBatch.DrawString(spriteFont, noHighScoresText, new Vector2(700, 50), Color.White);
-            }
-
-
-            //Rita ut highscore- listan
+            //Detta ritar ut highscore menyn, men till stor del sker allt "arbete" i HighScore classen själv, så denna metod behöver endast existera
         }
+
+        //Börjar om spelet
 
         private static void Reset(GameWindow window, ContentManager content)
         {
@@ -389,7 +375,11 @@ namespace Spaceshooter3
             Genererafiender(window, content);
             // gör en metod för att generera fiender, lika gärna
         }
-
+        /// <summary>
+        /// Skapar fiender, såsom mine, tripod och UFO
+        /// </summary>
+        /// <param name="window"></param>
+        /// <param name="content"></param>
         private static void Genererafiender(GameWindow window, ContentManager content)
         {
             enemies = new List<Enemy>();
@@ -418,11 +408,10 @@ namespace Spaceshooter3
             {
                 int rndX = random.Next(0, window.ClientBounds.Width - tmpSprite.Width);
                 int rndY = random.Next(0, window.ClientBounds.Height / 2);
+                //UFO laddar in bullet texturen
                 UFO temp = new UFO(tmpSprite, rndX, rndY, content.Load<Texture2D>("images/player/bullet"));
                 enemies.Add(temp); //Lägg till i listan
             }
         }
-
-
     }
 }

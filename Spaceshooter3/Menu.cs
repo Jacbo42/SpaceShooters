@@ -122,6 +122,10 @@ namespace Spaceshooter3
                 else //anars ingen färgtoning alls:
                     spriteBatch.Draw(menu[i].Texture, menu[i].Position, Color.White);
             }
+
+
+
+
         }
 
 

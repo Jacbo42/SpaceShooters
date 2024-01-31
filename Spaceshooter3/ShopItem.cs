@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    //ShopItem, en container-klass för shop klassen
     internal class ShopItem
     {
         Texture2D texture; //Bilden för menyvalet

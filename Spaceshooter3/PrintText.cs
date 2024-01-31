@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// En klass vars uppgift är att skriva ut värden
+    /// </summary>
     internal class PrintText
     {
         SpriteFont font;

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// En fiende som kan skjuta
+    /// </summary>
     internal class UFO : Enemy
     {
         List<EnemyBullet> enemybullets;
@@ -60,7 +63,7 @@ namespace Spaceshooter3
         public override void Draw(SpriteBatch spriteBatch)
         {
             
-
+            //Ritar in skottet när metoden anropas
             foreach (EnemyBullet bullet in enemybullets)
             {
                 bullet.Draw(spriteBatch);
@@ -68,7 +71,7 @@ namespace Spaceshooter3
 
             base.Draw(spriteBatch);
         }
-
+        //Metoden som "skjuter" skottet
         private void ShootBullet(GameWindow window)
         {
 

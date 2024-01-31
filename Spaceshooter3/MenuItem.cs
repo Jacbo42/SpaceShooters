@@ -9,8 +9,9 @@ using System.Threading.Tasks;
 namespace Spaceshooter3
 {
 
-    //MenuItem, container-klass för ett menyval
-
+    /// <summary>
+    /// MenuItem, container-klass för ett menyval
+    /// </summary>
     internal class MenuItem
     {
         Texture2D texture; //Bilden för menyvalet

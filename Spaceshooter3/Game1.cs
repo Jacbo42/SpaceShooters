@@ -4,6 +4,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 
@@ -31,14 +32,23 @@ namespace Spaceshooter3
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
 
             _graphics.PreferredBackBufferWidth = 1000;
             _graphics.PreferredBackBufferHeight = 720;
             _graphics.ApplyChanges();
             GameElements.currentState = GameElements.State.Menu;
             GameElements.Initialize();
-            highScore = new HighScore(10);
+
+            if (File.Exists("highscore.txt"))
+            {
+                highScore = new HighScore(10);
+                highScore.LoadFromFile("highscore.txt");
+            }
+            else
+            {
+                highScore = new HighScore(10);
+            }
+
             statMaster = new StatMaster();
             
             base.Initialize();
@@ -52,7 +62,6 @@ namespace Spaceshooter3
             GameElements.LoadContent(Content, Window);
             
 
-            // TODO: use this.Content to load your game content here
         }
 
         //UnloadContent(), anropas då spelet avslutat. Här kan man ladda ur de objekt som skulle kunna behöva det för att rensa minne
@@ -74,7 +83,6 @@ namespace Spaceshooter3
             switch (GameElements.currentState)
             {
                 case GameElements.State.Run:
-                    
                     GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
                     break;
                 case GameElements.State.HighScore:
@@ -86,21 +94,22 @@ namespace Spaceshooter3
                 case GameElements.State.Shop:
                     GameElements.currentState = GameElements.ShopUpdate(gameTime);
                     break;
-                case GameElements.State.Continue:
-                    GameElements.currentState = GameElements.RunUpdate(Content, Window, gameTime);
-                    break;
+                
                 
 
                 default: //menyn
                     GameElements.currentState = GameElements.MenuUpdate(gameTime);
                     break;
             }
+            //Aktiverings logiken för highscore, vilket tillåter en att sätta in värden och se på highscore värden
+
             if (GameElements.currentState == GameElements.State.HighScore)
             {
                 switch (currentStateScore)
                 {
                     case State.EnterHighScore: // Skriv in oss i listan
                                                // Fortsätt så länge HighScore.EnterUpdate() returnerar true:
+                                               // Tyvärr behövde jag använda en global variabel här, alltså Points från StatMaster classen
                         if (highScore.EnterUpdate(gameTime, GameElements.GetStatMasterInstance().Points))
                             currentStateScore = State.PrintHighScore;
                         break;
@@ -113,7 +122,6 @@ namespace Spaceshooter3
             }
             
 
-            // TODO: Add your update logic here
 
             base.Update(gameTime);
         }
@@ -138,13 +146,11 @@ namespace Spaceshooter3
                 case GameElements.State.Shop:
                     GameElements.ShopDraw(spriteBatch);
                     break;
-                //case GameElements.State.GameOver:
-                //    GameElements.GameOver(spriteBatch);
-                    break;
                 default: //menyn
                     GameElements.MenuDraw(spriteBatch);
                     break;
             }
+            //Logik som ritar ut saker i Highscore beroende på vilket state highscore är i.
             if (GameElements.currentState == GameElements.State.HighScore)
             {
                 switch (currentStateScore)
@@ -161,7 +167,6 @@ namespace Spaceshooter3
 
 
             spriteBatch.End();
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

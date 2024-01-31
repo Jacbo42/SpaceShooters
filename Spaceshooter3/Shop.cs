@@ -17,8 +17,6 @@ namespace Spaceshooter3
         //Första valet i listan är valt
 
         private List<ShopItem> shop;
-        private PrintText printText;
-        private Player player;
 
         //currentHeigt används för att rita ut shopItems på olika höjd:
 
@@ -28,11 +26,10 @@ namespace Spaceshooter3
 
         //Shop(), konstruktor som skapar listan med ShopItem:s
 
-        public Shop(int shopState, Player player)
+        public Shop(int shopState)
         {
             shop = new List<ShopItem>();
             this.ShopState = shopState;
-            this.player = player;
         }
         //AddItem(), lägger till ett menyval i listan
 
@@ -43,6 +40,7 @@ namespace Spaceshooter3
             float Y = 0;
 
             //skapa ett temporärt objekt och lägg det i listan
+
             ShopItem temp = new ShopItem(itemTexture, new Vector2(X, Y), state);
 
             shop.Add(temp);
@@ -74,7 +72,6 @@ namespace Spaceshooter3
             }
 
 
-            //printText.Print("Cash: " + player.Cash, spriteBatch, new Vector2(0, 15), Color.Blue);
 
         }
     }

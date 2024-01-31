@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// Goldcoin är klassen som överser skapelsen av Coins i spelet, som därmed ger pengar till spelaren.
+    /// </summary>
     internal class GoldCoin : PhysicalObject
     {
         double timeToDie; //Hur länge guldmyntet lever kvar

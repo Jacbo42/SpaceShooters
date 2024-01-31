@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// Klass som reglerar själva objekten i spelet, genom exempelvis texture och vector
+    /// </summary>
     internal class GameObjekt
     {
         protected Texture2D texture; // Rymdskeppets textur

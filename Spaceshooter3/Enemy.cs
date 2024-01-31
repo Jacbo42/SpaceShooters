@@ -8,7 +8,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
-    //klass för fiender
+    /// <summary>
+    /// klass för att implementera fiender
+    /// </summary>
     internal abstract class Enemy : PhysicalObject
     {
 

@@ -9,6 +9,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
+    /// <summary>
+    /// Grunden till hur spel objekten fungerar i programmet
+    /// </summary>
     abstract class PhysicalObject : MovingObject
     {
         protected bool isAlive = true;

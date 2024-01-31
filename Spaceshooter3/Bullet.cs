@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace Spaceshooter3
 {
-
-
-
-
+    /// <summary>
+    /// Klassen som reglerar spelarens skott
+    /// </summary>
     internal class Bullet : PhysicalObject
     {
         //Konstruktor
@@ -35,7 +34,9 @@ namespace Spaceshooter3
 
     }
 
-    //Detta är samma klass, fast den enda skillnaden är att denna klass har ett annat namn och fart på skotten
+    /// <summary>
+    /// Samma klass som normala Bullet, fast den enda skillnaden är att denna klass har ett annat namn och fart på skotten
+    /// </summary>
     internal class EnemyBullet : PhysicalObject
     {
         public EnemyBullet(Texture2D texture, float X, float Y) : base(texture, X, Y, 0, -3f)

@@ -15,8 +15,11 @@ namespace Spaceshooter3
 
     internal class Player : PhysicalObject
     {
+        //Skott
         List<Bullet> bullets;
+        //Skott textur
         Texture2D bulletTexture;
+        //StatMaster
         StatMaster statMaster;
         double timeSinceLastBullet = 0;
         double timeBetweenBullets = 400; // Initial value
@@ -24,14 +27,12 @@ namespace Spaceshooter3
 
 
 
-
+        //Variabler som reglerar ödodlighet
         private bool isInvulnerable;
         private float InvulnerabilityDuration = 3.0f;
         private float InvulnerableTimer;
 
-        private float flashduration = 0.0f; //Hur länge spelaren "flashar" efter de har blivit skadad'
-        private float flashtimer;
-        private bool isFlashing;
+       
 
         //konstruktor
 
@@ -42,10 +43,8 @@ namespace Spaceshooter3
             this.bulletTexture = bulletTexture;
         }
 
-        //Update(), flyttar på spelaren
 
-        //points
-
+        //Egenskaper
         public double TimeBetweenBullets
         {
             get { return timeBetweenBullets; }
@@ -73,13 +72,8 @@ namespace Spaceshooter3
             get { return InvulnerableTimer; }
             set { InvulnerableTimer = value; }
         }
-        public bool IsFlashing
-        {
-            get; set;
-        }
-
-
         public List<Bullet> Bullets { get { return bullets; } }
+        //Update(), flyttar på spelaren
 
         public void Update(GameWindow window, GameTime gameTime)
         {
@@ -94,15 +88,9 @@ namespace Spaceshooter3
                 if (InvulnerableTimer <= 0)
                 {
                     isInvulnerable = false;
+                    InvulnerableTimer = 0;
                 }
             }
-
-            //if (keyboardState.IsKeyDown(Keys.Escape))
-            //{
-            //    isAlive = false;
-            //}
-
-
 
             //Flytta rymdskeppet efter tangenttryckningar (om det inte är på väg ut från kanten)
 
@@ -160,11 +148,7 @@ namespace Spaceshooter3
 
         public override void Draw(SpriteBatch spriteBatch)
         {
-            if (!isInvulnerable || (isInvulnerable && isFlashing))
-            {
-                spriteBatch.Draw(texture, vector, Color.White);
-            }
-
+            spriteBatch.Draw(texture, vector, Color.White);
 
             foreach (Bullet b in bullets)
             {
@@ -199,33 +183,20 @@ namespace Spaceshooter3
 
         }
 
-
+        //Påbörjar odödlighet
 
         public void StartInvulnerability()
         {
             isInvulnerable = true;
             InvulnerableTimer = InvulnerabilityDuration;
-            isFlashing = true;
-            flashtimer = 0.0f;
+            
         }
 
-        public void UpdateFlash(GameTime gameTime)
-        {
-            if (isFlashing)
-            {
-                flashtimer += (float)gameTime.ElapsedGameTime.TotalSeconds;
-
-                if (flashtimer >= flashduration)
-                {
-                    isFlashing = false;
-                    flashtimer = 0.0f;
-                }
-
-            }
-        }
-
+        
+        //Gör så att spelaren förlorar liv
         public void LoseLife(GameWindow window, GameTime gameTime, Player player, Enemy e)
         {
+
             if (e.CheckCollision(player))
             {
                 if (!IsInvulnerable)
@@ -244,11 +215,9 @@ namespace Spaceshooter3
 
                 if (IsInvulnerable)
                 {
-                    UpdateFlash(gameTime);
                     if (invulnerableTimer <= 0)
                     {
                         IsInvulnerable = false;
-                        IsFlashing = false;
                     }
                 }
                 //timer ser dålig ut
@@ -257,6 +226,7 @@ namespace Spaceshooter3
             }
 
         }
+        //Gör så att spelaren förlorar liv, fast med enemybullet istället för fiender
         public void LoseLifeBullet(GameWindow window, GameTime gameTime, Player player, EnemyBullet e)
         {
             if (e.CheckCollision(player))
@@ -277,11 +247,9 @@ namespace Spaceshooter3
 
                 if (IsInvulnerable)
                 {
-                    UpdateFlash(gameTime);
                     if (invulnerableTimer <= 0)
                     {
                         IsInvulnerable = false;
-                        IsFlashing = false;
                     }
                 }
                 //timer ser dålig ut

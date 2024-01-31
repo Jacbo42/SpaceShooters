@@ -21,7 +21,6 @@ namespace HighScoreExample
 
         protected override void Initialize()
         {
-            // TODO: Add your initialization logic here
             highScore = new HighScore(10);
 
             base.Initialize();
@@ -32,7 +31,6 @@ namespace HighScoreExample
             _spriteBatch = new SpriteBatch(GraphicsDevice);
             myFont = Content.Load<SpriteFont>("myFont");
 
-            // TODO: use this.Content to load your game content here
         }
 
         protected override void Update(GameTime gameTime)
@@ -40,7 +38,6 @@ namespace HighScoreExample
             if (GamePad.GetState(PlayerIndex.One).Buttons.Back == ButtonState.Pressed || Keyboard.GetState().IsKeyDown(Keys.Escape))
                 Exit();
 
-            // TODO: Add your update logic here
             switch (currentState)
             {
                 case State.EnterHighScore: // Skriv in oss i listan
@@ -74,7 +71,6 @@ namespace HighScoreExample
             }
             _spriteBatch.End();
 
-            // TODO: Add your drawing code here
 
             base.Draw(gameTime);
         }

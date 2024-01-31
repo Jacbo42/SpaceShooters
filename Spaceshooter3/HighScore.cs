@@ -91,10 +91,6 @@ namespace Spaceshooter3
                 // elementet har index 5. Vi gör highscore.RemoveAt(5):
                 highscore.RemoveAt(maxInList);
             }
-
-
-           
-
         }
 
         // =======================================================================
@@ -197,8 +193,6 @@ namespace Spaceshooter3
         {
             string text = "ENTER NAME:" + name + currentChar;
             spriteBatch.DrawString(font, text, Vector2.Zero, Color.White);
-
-
         }
 
         // =======================================================================

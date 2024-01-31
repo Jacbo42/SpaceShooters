@@ -133,7 +133,7 @@
 /processorParam:TextureFormat=Color
 /build:images/powerups/coin.png
 
-#begin images/shopmenu/shopbackground.png
+#begin images/shopmenu/shopbackground0.png
 /importer:TextureImporter
 /processor:TextureProcessor
 /processorParam:ColorKeyColor=255,0,255,255
@@ -143,7 +143,7 @@
 /processorParam:ResizeToPowerOfTwo=False
 /processorParam:MakeSquare=False
 /processorParam:TextureFormat=Color
-/build:images/shopmenu/shopbackground.png
+/build:images/shopmenu/shopbackground0.png
 
 #begin mine.png
 /importer:TextureImporter
