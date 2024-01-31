@@ -39,7 +39,6 @@ namespace Spaceshooter3
         
 
 
-        // FIXA OCKSÅ SÅ ATT DET FINNS EN BILD I MENU SOM FUNGERAR SOM INTRUSKTIONER TILL HUR MAN SPELAR
 
 
 
