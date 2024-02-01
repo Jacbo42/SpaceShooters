@@ -42,7 +42,11 @@ namespace Spaceshooter3
             if (File.Exists("highscore.txt"))
             {
                 highScore = new HighScore(10);
+                
+                
                 highScore.LoadFromFile("highscore.txt");
+
+               
             }
             else
             {

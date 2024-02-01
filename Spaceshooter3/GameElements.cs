@@ -61,8 +61,6 @@ namespace Spaceshooter3
             highscore = new HighScore(10);
 
 
-            //HighScore textfilen
-            highscore.LoadFromFile("highscore.txt");
 
             menu.AddItem(content.Load<Texture2D>("images/menu/start"), (int)State.Run);
             menu.AddItem(content.Load<Texture2D>("images/menu/highscore"), (int)State.HighScore);
