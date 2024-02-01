@@ -147,7 +147,7 @@ namespace Spaceshooter3
             {
                 if (statMaster.Cash >= 10)
                 {
-                    statMaster.Starterlives += 1;
+                    player.Starterlives += 1;
                     statMaster.Cash -= 10;
                 }
 
@@ -231,6 +231,7 @@ namespace Spaceshooter3
                     //Spelare förlorar liv i kontakt med fiende
 
                     player.LoseLife(window, gameTime, player, e);
+                    
                     e.Update(window); //Flytta på dem
                 }
                 else // Ta bort fienden för den är död
@@ -248,6 +249,7 @@ namespace Spaceshooter3
                 {
                     // Spelare förlorar liv i kontakt med skott
                     player.LoseLifeBullet(window, gameTime, player, e);
+                    
                     e = null;
                 }
                 else
@@ -354,6 +356,8 @@ namespace Spaceshooter3
             printText.Print("Cash: " + statMaster.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
             printText.Print("Time: " + Math.Ceiling(player.invulnerableTimer), spriteBatch, new Vector2(0, 30), Color.Black);
             printText.Print("Level: " + statMaster.Level, spriteBatch, new Vector2(0, 45), Color.Black);
+            printText.Print("Lives: " +  player.Starterlives, spriteBatch, new Vector2(0, 60), Color.Black);
+
 
         }
 

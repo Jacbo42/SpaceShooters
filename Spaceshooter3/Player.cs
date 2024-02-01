@@ -24,7 +24,7 @@ namespace Spaceshooter3
         double timeSinceLastBullet = 0;
         double timeBetweenBullets = 400; // Initial value
         int upgradelimit = 0;
-
+        int starterlives = 3;
 
 
         //Variabler som reglerar ödodlighet
@@ -54,6 +54,11 @@ namespace Spaceshooter3
         public int UpgradeLimit
         {
             get { return upgradelimit; } set {  upgradelimit = value; }
+        }
+        public int Starterlives
+        {
+            get { return starterlives; }
+            set { starterlives = value; }
         }
 
         public bool IsInvulnerable
@@ -171,13 +176,11 @@ namespace Spaceshooter3
             timeBetweenBullets = 400;
             timeSinceLastBullet = 0;
             //återställer spelarens liv
-            statMaster.Starterlives = 3;
+            starterlives = 3;
             // återställ spelarens poäng:
             statMaster.Points = 0;
             // återställer spelarens pengar:
             statMaster.Cash = 0;
-            //Återställ kills, så att det inte blir konstigt när spelaren kör igång igen och en ny level kommer nästan omedelbart
-            statMaster.Kills = 0;
             // går så att spelaren lever igen:
             isAlive = true;
 
@@ -201,8 +204,8 @@ namespace Spaceshooter3
             {
                 if (!IsInvulnerable)
                 {
-                    statMaster.Starterlives--;
-                    if (statMaster.Starterlives <= 0)
+                    Starterlives--;
+                    if (Starterlives <= 0)
                     {
                         IsAlive = false;
                     }
@@ -213,15 +216,13 @@ namespace Spaceshooter3
 
                 }
 
-                if (IsInvulnerable)
+                else
                 {
                     if (invulnerableTimer <= 0)
                     {
                         IsInvulnerable = false;
                     }
                 }
-                //timer ser dålig ut
-
 
             }
 
@@ -233,8 +234,8 @@ namespace Spaceshooter3
             {
                 if (!IsInvulnerable)
                 {
-                    statMaster.Starterlives--;
-                    if (statMaster.Starterlives <= 0)
+                    Starterlives--;
+                    if (Starterlives <= 0)
                     {
                         IsAlive = false;
                     }
@@ -245,7 +246,7 @@ namespace Spaceshooter3
 
                 }
 
-                if (IsInvulnerable)
+                else
                 {
                     if (invulnerableTimer <= 0)
                     {

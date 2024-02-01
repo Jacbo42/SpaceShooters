@@ -20,7 +20,6 @@ namespace Spaceshooter3
         /// <summary>
         /// Mängden fiender spelaren har dödat. Detta värde reglerar när fiender laddar in igen.
         /// </summary>
-        int kills = 0;
         /// <summary>
         /// Spelarens pengar, vilket bestämmer vad spelaren kan köpa
         /// </summary>
@@ -28,7 +27,6 @@ namespace Spaceshooter3
         /// <summary>
         /// Mängden liv spelaren har
         /// </summary>
-        int starterlives = 3;
         /// <summary>
         /// Den "nivån" spelaren har nått. Egentligen är detta bara ett nummer som visar mängden gånger spelaren har dödat 10 eller fler fiender
         /// </summary>
@@ -36,7 +34,6 @@ namespace Spaceshooter3
         public int Points { get { return points; } set { points = value; } }
         public int Cash { get { return cash; } set { cash = value; } }
         public int Level { get { return level; } set { level = value; } }
-        public int Starterlives { get { return starterlives; } set { starterlives = value; } }
         public StatMaster() { }
 
         public void Reset()
@@ -45,7 +42,6 @@ namespace Spaceshooter3
             
             //återställ ala skott:
             //återställer spelarens liv
-            starterlives = 3;
             // återställ spelarens poäng:
             points = 0;
             // återställer spelarens pengar:
