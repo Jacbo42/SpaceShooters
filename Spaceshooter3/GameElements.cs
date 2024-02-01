@@ -35,13 +35,6 @@ namespace Spaceshooter3
 
         static List<EnemyBullet> enemybullets;
 
-
-        
-
-
-
-
-
         // olika gamestates
 
         public enum State { Menu, Run, HighScore, Quit, Shop };
@@ -202,9 +195,10 @@ namespace Spaceshooter3
                     {
                         e.IsAlive = false;
                         statMaster.Points++;
-                        statMaster.Kills++;
                     }
                 }
+
+
                 
                 if (e.IsAlive) // Kontrollera om fienden lever
                 {
@@ -212,13 +206,30 @@ namespace Spaceshooter3
                     if (e is UFO myUFO) //Om fienden är ett UFO så...
                     {
 
+
+                        for (int i = myUFO.EnemyBullets.Count - 1; i >= 0; i--)
+                        {
+                            EnemyBullet bullet = myUFO.EnemyBullets[i];
+                            if (bullet.IsAlive)
+                            {
+                                enemybullets.Add(bullet);
+
+                            }
+                            else
+                            {
+                                bullet = null;
+
+                            }
+                        }
+
                         foreach (EnemyBullet bullet in myUFO.EnemyBullets) // ...ska enemybullet läggas till i en global lista
                         {
-
                             enemybullets.Add(bullet);
+                            
                         }
                     }
                     //Spelare förlorar liv i kontakt med fiende
+
                     player.LoseLife(window, gameTime, player, e);
                     e.Update(window); //Flytta på dem
                 }
@@ -229,30 +240,31 @@ namespace Spaceshooter3
 
             }
             //Collision logik med fiende skott
-            foreach (EnemyBullet e in enemybullets.ToList())
+            for (int i = enemybullets.Count - 1; i >= 0; i--)
             {
+                EnemyBullet e = enemybullets[i];
 
-                if (e.IsAlive) // Kontrollera om skottet lever
-                { 
-                    //Spelare förlorar liv i kontakt med skott
-                    player.LoseLifeBullet(window, gameTime, player, e);
-                }
-                else // Ta bort skottet för den är död
+                if (e.IsAlive)
                 {
-                    enemybullets.Remove(e);
+                    // Spelare förlorar liv i kontakt med skott
+                    player.LoseLifeBullet(window, gameTime, player, e);
+                    e = null;
                 }
-
+                else
+                {
+                    
+                    enemybullets.RemoveAt(i); // Ta bort skottet för den är död
+                    e = null;
+                }
             }
 
-            //Ny level var tionde kill
-
-            if (statMaster.Kills >= 10)
+            //Ny level om alla fiender är döda
+            if (enemies.Count == 0)
             {
-                statMaster.Kills = 0;
                 Genererafiender(window, content);
                 statMaster.Level++;
-
             }
+            
 
 
             //Guldmynten ska uppstå slumpmässigt, en chans på 125
@@ -310,15 +322,15 @@ namespace Spaceshooter3
 
             if (!player.IsAlive) //spelaren är död
             {
-                //return State.GameOver;
-                
+
                 Reset(window, content);
-                
                 return State.HighScore;
             }
             //Updaterar bakgrunden så att det "flyter" neråt
             background.Update(window);
 
+            //Tar bort alla bullets
+            enemybullets.Clear();
             return State.Run;
         }
 
@@ -342,6 +354,7 @@ namespace Spaceshooter3
             printText.Print("Cash: " + statMaster.Cash, spriteBatch, new Vector2(0, 15), Color.Black);
             printText.Print("Time: " + Math.Ceiling(player.invulnerableTimer), spriteBatch, new Vector2(0, 30), Color.Black);
             printText.Print("Level: " + statMaster.Level, spriteBatch, new Vector2(0, 45), Color.Black);
+
         }
 
         //HighScoreUpdate(), update-metod för highscore-listan
@@ -350,7 +363,8 @@ namespace Spaceshooter3
         {
             KeyboardState keyboardState = Keyboard.GetState();
             //Återgå till menyn om man trycker ESC
-            if (keyboardState.IsKeyDown(Keys.Escape)) { return State.Menu; }
+            if (keyboardState.IsKeyDown(Keys.Escape))
+            { statMaster.Reset(); return State.Menu; }
             return State.HighScore;
 
         }
@@ -367,12 +381,10 @@ namespace Spaceshooter3
         private static void Reset(GameWindow window, ContentManager content)
         {
             player.Reset(380, 400, 2.5f, 4.5f);
-
             // Skapa fiender
             enemies.Clear();
 
             Genererafiender(window, content);
-            // gör en metod för att generera fiender, lika gärna
         }
         /// <summary>
         /// Skapar fiender, såsom mine, tripod och UFO
@@ -381,17 +393,21 @@ namespace Spaceshooter3
         /// <param name="content"></param>
         private static void Genererafiender(GameWindow window, ContentManager content)
         {
+            //Sätter fiender i en lista...
             enemies = new List<Enemy>();
             Random random = new Random();
+            //Laddar in texture...
             Texture2D tmpSprite = content.Load<Texture2D>("mine");
             for (int i = 0; i < 5; i++)
             {
+                //Placerar ut fienden...
                 int rndX = random.Next(0, window.ClientBounds.Width - tmpSprite.Width);
                 int rndY = random.Next(0, window.ClientBounds.Height / 2);
                 Mine temp = new Mine(tmpSprite, rndX, rndY);
                 enemies.Add(temp); //Lägg till i listan
 
             }
+            //repetera dessa steg för alla andra fiender
             tmpSprite = content.Load<Texture2D>("tripod");
             for (int i = 0; i < 5; i++)
             {

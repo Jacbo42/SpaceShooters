@@ -34,12 +34,13 @@ namespace Spaceshooter3
                 //Flytta på skottet:
                 b.Update(window);
                 //kontrollera så att skottet inte är "Dött"
-                if (!b.IsAlive)
+                if (b.IsAlive == false) 
                 {
                     enemybullets.Remove(b); // Ta bort skottet ur listan
                 }
             }
-            if (random.Next(120) == 0)
+
+            if (random.Next(240) == 0)
             {
                 ShootBullet(window);
             }
@@ -84,11 +85,12 @@ namespace Spaceshooter3
                 //Flytta på skottet:
                 b.Update(window);
                 //kontrollera så att skottet inte är "Dött"
-                if (!b.IsAlive)
+                if (b.IsAlive == false)
                 {
                     EnemyBullets.Remove(b); // Ta bort skottet ur listan
                 }
             }
+
 
         }
     }
