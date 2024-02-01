@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
   <Class Name="Spaceshooter3.Background" Collapsed="true">
-    <Position X="9.75" Y="3" Width="1.5" />
+    <Position X="9.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AQQAAAAAAAAAAgAAAAAAAAAAAAgAAAAAAAAAAAAAIAA=</HashCode>
+      <HashCode>AQQAAAAAAAAAEgAAAAAAAAAAAAgAAAAAAAAAAAAAIAA=</HashCode>
       <FileName>Background.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -29,16 +29,16 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Game1" Collapsed="true">
-    <Position X="9.75" Y="2.25" Width="1.5" />
+    <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAEAAAAAAAAwAAAAAAAAAAIIAAAAACAIQAAAAAAAQ=</HashCode>
+      <HashCode>AAQAEEAAAAAAAwAAAAgAAAAAIIAAAAACAAAAAAAAABQ=</HashCode>
       <FileName>Game1.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.GameElements" Collapsed="true">
-    <Position X="9.75" Y="1.5" Width="1.5" />
+    <Position X="7.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>JIAAAAAQAACBBQAAIAIAAAgABAAAACAJAAAACABAIAQ=</HashCode>
+      <HashCode>IIAAAAAQIAGBFQAAIAoAAAgABBAIACAJgAAACABAIAQ=</HashCode>
       <FileName>GameElements.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -57,28 +57,28 @@
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.HighScore" Collapsed="true">
-    <Position X="9.75" Y="5.5" Width="1.5" />
+    <Position X="13" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAIgAAAgKgCAAAAIAAASAAAAAAAkAAAAQAAAAAAAEAA=</HashCode>
+      <HashCode>AAIgAAAgKgCAAAAIAAASAAAAIAAkAAAAQAAAAAAAEAA=</HashCode>
       <FileName>HighScore.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.HSItem" Collapsed="true">
-    <Position X="9.75" Y="6" Width="1.5" />
+    <Position X="13" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAACAAAAAgAAAAAAAAAQAAAAEAAAAAAAAAAAAAAA=</HashCode>
       <FileName>HSItem.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.Menu" Collapsed="true">
-    <Position X="9.75" Y="3.75" Width="1.5" />
+    <Position X="11.25" Y="1.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AgQAAAAAAAAAAgAAAAAAAAgAgAAAAAAAQAAAAgAAAAA=</HashCode>
       <FileName>Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.MenuItem" Collapsed="true">
-    <Position X="9.75" Y="4.75" Width="1.5" />
+    <Position X="11.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAgIAAAIAAAAAAAAgAAAAIABAAAAAA=</HashCode>
       <FileName>MenuItem.cs</FileName>
@@ -108,12 +108,12 @@
   <Class Name="Spaceshooter3.Player" Collapsed="true">
     <Position X="2" Y="1.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gQQAgASAAIAEhgAAAAQAAAAAAACQAABCAAAAQoEAAAA=</HashCode>
+      <HashCode>gwQAgAEAAIACBgAAAAwAAAAAAAKQAABAEQAAQoEAAAA=</HashCode>
       <FileName>Player.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="Spaceshooter3.PrintText" Collapsed="true">
-    <Position X="9.75" Y="6.5" Width="1.5" />
+    <Position X="9.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAA=</HashCode>
       <FileName>PrintText.cs</FileName>
@@ -129,7 +129,7 @@
   <Class Name="Spaceshooter3.UFO" Collapsed="true">
     <Position X="5.75" Y="7.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQAgAAAAIAAAgAAAAAAAAAAAAAAAAQAAAQAAoAAAAA=</HashCode>
+      <HashCode>AIQAAAAAAAAAAgAAAAAAAAAAAAAAAAQAAAQAAgCAAAA=</HashCode>
       <FileName>UFO.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -138,6 +138,27 @@
     <TypeIdentifier>
       <HashCode>AAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Bullet.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spaceshooter3.Shop" Collapsed="true">
+    <Position X="11.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAAAgAAAAAAAAAAgACAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Shop.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spaceshooter3.ShopItem" Collapsed="true">
+    <Position X="11.25" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAgIAAAIAAAAAAAAgAAAAIABAAAAAA=</HashCode>
+      <FileName>ShopItem.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Spaceshooter3.StatMaster" Collapsed="true">
+    <Position X="9.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAASAAAAEhAAAAAAAAAAAAAEAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>StatMaster.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Font Name="Segoe UI" Size="9" />
